@@ -7,6 +7,15 @@
     <description>Updates to RAWdemption, the RAW editor for macOS.</description>
     <language>en</language>
     <item>
+      <title>RAWdemption 0.9.4</title>
+      <pubDate>Wed, 21 Oct 2026 21:11:20 GMT</pubDate>
+      <sparkle:version>8</sparkle:version>
+      <sparkle:shortVersionString>0.9.4</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Already supported RAWdemption? The support card now has a way to hide it for good.</li></ul>]]></description>
+      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.4.zip" length="2428298" type="application/octet-stream" sparkle:edSignature="d6pL7zVA2Sv1toCb6SXdEQ89QJNg7AtOlHTEZXzj6z5LjAzAozDa5j5kcMdndVSoPMziHG0tctlS+jHgZj1bDw=="/>
+    </item>
+    <item>
       <title>RAWdemption 0.9.3</title>
       <pubDate>Wed, 21 Oct 2026 21:01:03 GMT</pubDate>
       <sparkle:version>7</sparkle:version>
