@@ -20,7 +20,7 @@
     // Appearance before first paint: saved choice, else the system's.
     try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=7fff4052">
+  <link rel="stylesheet" href="styles.css?v=05eef1d0">
 </head>
 <body>
 
@@ -94,9 +94,9 @@
       <div class="why-grid">
       <div class="letter">
         <p>It began with a Lightroom renewal: around $150 for one more year of editing photos that were already taken. Every year, that same money could go to the things that actually make photographs instead.</p>
-        <p>The free alternatives were capable, but heavy going for a simple routine: shoot, pick the keepers, make them look right, share them. RAWdemption is built for exactly that routine, and to feel good doing it.</p>
-        <p>It isn't a professional suite, and that's deliberate. No catalogue to maintain, no tethering, no print module, no wall of panels. Just the essentials, done with care: light and colour, crop and straighten, masks, copy and paste, a quick export. Plenty for enthusiasts, travellers and weekend shooters, and light enough to stay out of the way.</p>
-        <p>Free forever: no subscription, no account, no watermark, no limit on how many photos you edit or export.</p>
+        <p>The free alternatives are capable, but dreadful to use: a chore, never a pleasure, even for a simple routine. Shoot, pick the keepers, make them look right, share them. RAWdemption is built for exactly that routine, and to feel good doing it.</p>
+        <p>It's not meant to be a pro suite: no catalogue to maintain, no tethering, no print module, no wall of panels. Just the essentials, done with care, for enthusiasts, travellers and weekend shooters.</p>
+        <p class="free"><svg aria-hidden="true"><use href="#i-check"/></svg>Free forever, for anyone.</p>
         <p class="soft" data-needs="support" hidden>RAWdemption is made by one person. If it earns a place on your Mac, you can support it.</p>
         <div class="row" data-needs="support" hidden><a class="btn quiet touch" href="#" data-link="support" hidden>Support RAWdemption</a></div>
       </div>
@@ -148,15 +148,31 @@
 
             <g class="scene" data-i="2">
               <circle cx="200" cy="160" r="160" fill="url(#sp-glow)"/>
-              <rect x="80" y="118" width="20" height="84" rx="3" fill="#a3a3aa"/>
-              <rect x="96" y="104" width="196" height="112" rx="14" fill="#1e1e22"/>
-              <rect x="168" y="99" width="80" height="122" rx="9" fill="#26262b"/>
-              <rect x="172" y="99" width="72" height="122" fill="url(#sp-ridge)"/>
-              <rect x="252" y="104" width="7" height="112" fill="#c4c4ca"/>
-              <text x="110" y="164" font-size="10" letter-spacing="1.2" fill="#8f8f97" font-family="-apple-system, sans-serif">56mm 1:1.4</text>
-              <ellipse cx="294" cy="160" rx="16" ry="62" fill="url(#sp-glass)"/>
-              <ellipse cx="294" cy="160" rx="16" ry="62" fill="none" stroke="#38383f" stroke-width="5"/>
-              <ellipse cx="290" cy="132" rx="3" ry="14" fill="#fff" opacity=".45"/>
+              <g transform="translate(-6 -34)">
+                <rect x="96" y="132" width="14" height="60" rx="3" fill="#a3a3aa"/>
+                <rect x="106" y="122" width="150" height="80" rx="11" fill="#1e1e22"/>
+                <rect x="160" y="118" width="56" height="88" rx="8" fill="#26262b"/>
+                <rect x="163" y="118" width="50" height="88" fill="url(#sp-ridge)"/>
+                <ellipse cx="258" cy="162" rx="12" ry="44" fill="url(#sp-glass)"/>
+                <ellipse cx="258" cy="162" rx="12" ry="44" fill="none" stroke="#38383f" stroke-width="4"/>
+                <ellipse cx="255" cy="142" rx="2.4" ry="10" fill="#fff" opacity=".45"/>
+              </g>
+              <g transform="translate(58 48)">
+                <rect x="96" y="138" width="12" height="48" rx="3" fill="#a3a3aa"/>
+                <rect x="104" y="130" width="104" height="64" rx="10" fill="#242429"/>
+                <rect x="140" y="126" width="40" height="72" rx="7" fill="#2c2c32"/>
+                <rect x="143" y="126" width="34" height="72" fill="url(#sp-ridge)"/>
+                <rect x="184" y="130" width="5" height="64" fill="#c4c4ca"/>
+                <ellipse cx="210" cy="162" rx="10" ry="36" fill="url(#sp-glass)"/>
+                <ellipse cx="210" cy="162" rx="10" ry="36" fill="none" stroke="#38383f" stroke-width="4"/>
+                <ellipse cx="207" cy="146" rx="2" ry="8" fill="#fff" opacity=".45"/>
+              </g>
+              <path d="M262 116 L276 98" stroke="#d9c7a8" stroke-width="1.2"/>
+              <g transform="rotate(14 300 92)">
+                <path d="M274 82 h52 l10 10 l-10 10 h-52 z" fill="#f3e6cc"/>
+                <circle cx="281" cy="92" r="2.6" fill="#2a2433"/>
+                <text x="290" y="96" font-size="11" font-weight="700" letter-spacing="1.4" fill="#2a2433" font-family="-apple-system, sans-serif">USED</text>
+              </g>
             </g>
 
             <g class="scene" data-i="3">
@@ -295,6 +311,6 @@
 
 <script src="photos.js?v=cdf224a2"></script>
 <script src="hero.js?v=066ba3b1"></script>
-<script src="site.js?v=222ed17d"></script>
+<script src="site.js?v=9cd5636d"></script>
 </body>
 </html>

@@ -901,7 +901,7 @@
   function buildSpend() {
     const root = $("#spend");
     if (!root) return;
-    const STEPS = [[1, 150, "a night under the stars"], [2, 300, "a fast 50mm prime, and a polariser"], [3, 450, "a Sigma 56mm f/1.4 portrait lens"],
+    const STEPS = [[1, 150, "a night under the stars"], [2, 300, "a fast 50mm prime, and a polariser"], [3, 450, "two good used lenses, or a good used camera body"],
       [5, 750, "a new camera, like a Canon EOS R50"], [10, 1500, "a week abroad with your camera"]];
     const scenes = $$(".scene", root), sum = $(".spend-sum", root), years = $(".spend-years", root), what = $(".spend-what", root);
     const steps = $$(".spend-steps button", root), fill = $(".spend-fill", root);
