@@ -79,11 +79,11 @@
 <header class="hero" id="top">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-copy">
-    <h1>RAWdemption</h1>
+    <h1>RAWdemption<span class="beta">Beta</span></h1>
     <p class="lede">Intuitive RAW editor for macOS. Free forever.</p>
     <p class="motto">A hobby shouldn't come with a monthly rent.</p>
     <a class="btn touch" href="downloads/RAWdemption.zip" download><svg><use href="#i-down"/></svg>Download for Mac</a>
-    <div class="meta">Apple silicon · macOS 13 or later</div>
+    <div class="meta">Public beta · Apple silicon · macOS 13 or later</div>
   </div>
 </header>
 
@@ -91,13 +91,26 @@
   <section class="section" id="why">
     <div class="wrap reveal">
       <h2>Why RAWdemption exists</h2>
-      <div class="letter" style="margin-top:18px">
-        <p>It began with a Lightroom renewal: around $150 for one more year of editing photos that were already taken. Every year, that same money could go to the things that actually make photographs: a fast prime, a weekend somewhere with good light, a few prints worth framing.</p>
+      <div class="why-grid">
+      <div class="letter">
+        <p>It began with a Lightroom renewal: around $150 for one more year of editing photos that were already taken. Every year, that same money could go to the things that actually make photographs instead.</p>
         <p>The free alternatives were capable, but heavy going for a simple routine: shoot, pick the keepers, make them look right, share them. RAWdemption is built for exactly that routine, and to feel good doing it.</p>
         <p>It isn't a professional suite, and that's deliberate. No catalogue to maintain, no tethering, no print module, no wall of panels. Just the essentials, done with care: light and colour, crop and straighten, masks, copy and paste, a quick export. Plenty for enthusiasts, travellers and weekend shooters, and light enough to stay out of the way.</p>
-        <p>Hence the name: your RAW files, redeemed. Free forever: no subscription, no account, no watermark, no limit on how many photos you edit or export.</p>
+        <p>Free forever: no subscription, no account, no watermark, no limit on how many photos you edit or export.</p>
         <p class="soft" data-needs="support" hidden>RAWdemption is made by one person. If it earns a place on your Mac, you can support it.</p>
         <div class="row" data-needs="support" hidden><a class="btn quiet touch" href="#" data-link="support" hidden>Support RAWdemption</a></div>
+      </div>
+      <aside class="ledger" aria-label="What a Lightroom plan adds up to">
+        <h3>What the renewal adds up to</h3>
+        <ol>
+          <li style="--share:10%"><span class="years">1 year</span><span class="sum">$150</span><span class="buys">two nights camping somewhere with dark skies</span></li>
+          <li style="--share:20%"><span class="years">2 years</span><span class="sum">$300</span><span class="buys">a fast 50mm f/1.8 prime, and a polariser for it</span></li>
+          <li style="--share:30%"><span class="years">3 years</span><span class="sum">$450</span><span class="buys">a Sigma 56mm f/1.4, the portrait lens people keep recommending</span></li>
+          <li style="--share:50%"><span class="years">5 years</span><span class="sum">$750</span><span class="buys">a whole new camera, like a Canon EOS R50 with its kit lens</span></li>
+          <li style="--share:100%"><span class="years">10 years</span><span class="sum">$1,500</span><span class="buys">a week abroad, photographing somewhere you've always wanted to go</span></li>
+        </ol>
+        <p class="fine">Lightroom plan: $149.99 a year since March 2026. Gear: typical US street prices in October 2026, rounded.</p>
+      </aside>
       </div>
     </div>
   </section>
@@ -158,28 +171,8 @@
           <p>RAWdemption isn't sold through the App Store, and notarising it with Apple requires a paid membership, so macOS asks you to confirm it once. Move RAWdemption to your Applications folder and open it, then go to System Settings › Privacy &amp; Security and click Open Anyway. On macOS 13 and 14, right-clicking RAWdemption and choosing Open also works. After that it opens like any other app, and updates install without asking again. (Keep it in Applications: macOS doesn't let apps update themselves while they run from Downloads.)</p>
         </details>
         <details>
-          <summary>How do updates work?</summary>
-          <p>RAWdemption checks for a new version each time it opens (and every hour while it stays open) and offers it in a small window with what's changed; you choose when to install. Every update is signed, and RAWdemption refuses any download that doesn't carry the right signature. RAWdemption › Check for Updates… checks right away, and Settings can turn automatic checks off.</p>
-        </details>
-        <details>
           <summary>Can it replace Lightroom?</summary>
           <p>For many hobbyists, yes: it covers what most people use day to day, with faster, calmer editing. If your work depends on catalogues across many drives, tethered shooting, print layouts or plugins, RAWdemption isn't meant for that, and that's by design.</p>
-        </details>
-        <details>
-          <summary>Is it really free? What's the catch?</summary>
-          <p>No catch. No trial, account, watermark or export limit, and no plan to add any. Support is welcome and entirely optional.</p>
-        </details>
-        <details>
-          <summary>What does it collect?</summary>
-          <p>Your photos never leave your Mac. RAWdemption sends anonymous counts (that it was opened, and how many photos an export contained) so it's possible to know whether anyone uses it, and you can turn that off in Settings. The <a href="privacy.html">privacy page</a> lists exactly what is sent.</p>
-        </details>
-        <details>
-          <summary>Something went wrong. How do I report it?</summary>
-          <p>In RAWdemption, choose Help › Report a Problem…. It opens an email with your RAWdemption, macOS and Mac details already filled in; add what happened and, if you can, the steps that lead to it. If RAWdemption quit unexpectedly, Help › Show Crash Reports opens the folder with the report worth attaching. <span data-needs="contact">Or write to <a class="addr" href="mailto:karate.seating4j@icloud.com" data-link="contact">karate.seating4j@icloud.com</a>.</span></p>
-        </details>
-        <details>
-          <summary>How do I uninstall it?</summary>
-          <p>Drag RAWdemption from Applications to the Trash. To remove everything else, also delete <code>~/Library/Caches/RAWdemption</code> (thumbnails and previews) and <code>~/Library/Preferences/app.rawdemption.mac.plist</code> (settings). Your edits stay in the hidden <code>.lightbox</code> folders beside your photos until you delete them (press ⇧⌘. in Finder to show hidden folders).</p>
         </details>
       </div>
     </div>
@@ -191,13 +184,14 @@
         <img class="icon" src="assets/icon.png" alt="RAWdemption icon">
         <div>
           <h2>Download RAWdemption</h2>
-          <div class="specs">Version <span data-version>1.1</span> · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
+          <div class="specs">Version <span data-version>0.9.0</span> beta · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
         </div>
       </div>
       <div class="row">
         <a class="btn touch" href="downloads/RAWdemption.zip" download><svg><use href="#i-down"/></svg>Download for Mac</a>
         <a class="btn quiet touch" href="#" data-link="support" hidden>Support</a>
       </div>
+      <p class="beta-note">RAWdemption is in public beta: ready for real photos, still finding its feet. If something looks off, Help › Report a Problem sends a note with the details filled in, and fixes arrive as updates the next time you open it.</p>
       <p class="firstrun">First launch: unzip, move RAWdemption to Applications, and open it. macOS asks once before opening apps from outside the App Store: go to System Settings › Privacy &amp; Security and click Open Anyway. (On macOS 13 and 14, right-clicking RAWdemption and choosing Open also works.) Updates then arrive inside the app.</p>
     </div>
   </section>
