@@ -1067,50 +1067,92 @@
       for (let i = 1; i <= text.length; i++) { span.textContent = text.slice(0, i); await ctl.wait(reduce ? 0 : 38); }
       await ctl.wait(500); greet.querySelector(".caret")?.remove();
     };
-    // Scrolls the page within the window, never past its end.
-    const view = (y) => { scroll.style.transform = `translateY(${-Math.max(0, Math.min(y, scroll.offsetHeight - 710))}px)`; };
+    // The camera: the page moves and scales inside the window to frame one thing at a time.
+    // Positions are the page's own (offsets ignore transforms), so framing never drifts.
+    const VIEW_W = 1200, VIEW_H = 710;
+    const at = (node) => { let x = 0, y = 0; for (let n = node; n && n !== scroll; n = n.offsetParent) { x += n.offsetLeft; y += n.offsetTop; } return { x, y, w: node.offsetWidth, h: node.offsetHeight }; };
+    const frame = (node, { pad = 26, max = 2.4, ms = 750 } = {}) => {
+      const r = at(node);
+      const k = Math.min(VIEW_W / (r.w + pad * 2), VIEW_H / (r.h + pad * 2), max);
+      // Centred on the thing, but never past the page's own edges (no blank above the header).
+      const tx = Math.min(0, Math.max(VIEW_W - scroll.offsetWidth * k, VIEW_W / 2 - (r.x + r.w / 2) * k));
+      const ty = Math.min(0, Math.max(VIEW_H - scroll.offsetHeight * k, VIEW_H / 2 - (r.y + r.h / 2) * k));
+      scroll.style.transition = `transform ${reduce ? 0 : ms}ms cubic-bezier(0.65, 0, 0.35, 1)`;
+      scroll.style.transform = `translate(${tx}px, ${ty}px) scale(${k})`;
+    };
+    const wide = (ms = 900) => { scroll.style.transition = `transform ${reduce ? 0 : ms}ms cubic-bezier(0.65, 0, 0.35, 1)`; scroll.style.transform = "translate(0, 0) scale(1)"; };
+    scroll.style.transformOrigin = "0 0";
+    const q = (sel) => $(sel, win);
+    const tiles = $$(".pf-tile", win), panels = $$(".pf-panel", win);
 
     whileVisible(film, async (ctl) => {
+      let first = true;
       for (let c = 0; ; c = (c + 1) % CH.length) {
         const ch = CH[c];
-        view(0);
-        say(c === 0 ? "It greets you like it knows you, because it does." : c === 1 ? "Mornings, evenings, weekends: it notices when you shoot." : "And it remembers the whole year.");
+        // The greeting, close up.
         $(".pf-date", win).textContent = `${ch.date} · with RAWdemption since 2 March 2024`;
+        frame(q(".pf-head"), { max: 1.7, ms: first ? 0 : 900 });
+        first = false;
+        say(["A week of shooting, read back to you.", "A month. The lead changes hands.", "And the whole year, at a glance."][c]);
         await typeGreeting(ctl, ch.greet);
-        tab(ch.tab); $(".pf-sum", win).textContent = ch.sum;
-        await ctl.wait(500);
-        say("Every photo you take, edit, export and love, counted for you.");
-        ["taken", "edited", "exported", "favs"].forEach((k, i) => setTimeout(() => count(k, ch.n[k]), i * 160));
-        deltas.forEach((d, i) => { d.textContent = ""; setTimeout(() => { d.textContent = ch.d[i]; d.style.color = i === 3 ? "var(--w-text-2)" : ""; }, 1300); });
-        await ctl.wait(1100); hearts();
-        await ctl.wait(1600);
-        say(c === 1 ? "Your cameras compete for first place, and the lead can change." : "Your cameras and lenses, ranked by what you actually use.");
-        view(250);
-        rank($('[data-r="cams"]', win), ch.cams); rank($('[data-r="lenses"]', win), ch.lenses);
-        insight("cam", ch.camLine); insight("lens", ch.lensLine);
-        await ctl.wait(3000);
-        say("It reads your style from the settings you choose and the light you chase.");
-        view(560);
+        // Into the dates: the highlight races across them and lands.
+        frame(q(".pf-tabs"), { max: 2.2, ms: 600 });
+        await ctl.wait(520);
+        const path = c === 0 ? [0, 1, 2, 1] : c === 1 ? [1, 2, 3, 4, 3] : [3, 4, 5, 4];
+        for (const i of path) { tab(i); await ctl.wait(170); }
+        $(".pf-sum", win).textContent = ch.sum;
+        await ctl.wait(260);
+        // Each figure in turn, counting as the camera arrives.
+        for (const [i, k] of ["taken", "edited", "exported", "favs"].entries()) {
+          frame(tiles[i], { max: 2.6, pad: 18, ms: 520 });
+          await ctl.wait(300);
+          count(k, ch.n[k], 700);
+          deltas[i].textContent = "";
+          setTimeout(() => { deltas[i].textContent = ch.d[i]; deltas[i].style.color = i === 3 ? "var(--w-text-2)" : ""; }, 560);
+          if (k === "favs") { await ctl.wait(420); hearts(); await ctl.wait(500); }
+          await ctl.wait(560);
+        }
+        // Pull back: all four, then the gear race.
+        frame(q(".pf-tiles"), { max: 1.6, ms: 600 });
+        await ctl.wait(700);
+        frame(panels[0], { max: 1.9, ms: 650 });
+        say(c === 1 ? "Your cameras compete for first place, and the lead can change." : "The cameras and lenses you actually reach for.");
+        rank($('[data-r="cams"]', win), ch.cams); insight("cam", ch.camLine);
+        await ctl.wait(1500);
+        frame(panels[1], { max: 1.9, ms: 600 });
+        rank($('[data-r="lenses"]', win), ch.lenses); insight("lens", ch.lensLine);
+        await ctl.wait(1400);
+        // What you see, and how you expose it.
+        say("Your style, read from the settings you choose.");
+        frame(panels[2], { max: 1.9, ms: 650 });
         const bmax = Math.max(...ch.bands, 1), btop = ch.bands.indexOf(bmax);
         $$(".pf-bands i", win).forEach((b, i) => { b.style.height = `${Math.max(3, (ch.bands[i] / bmax) * 70)}px`; b.classList.toggle("top", i === btop); });
         $(".pf-fav", win).innerHTML = `${ch.fav}<small>your favourite focal length</small>`;
-        insight("focal", ch.focalLine); insight("sig", ch.sigLine);
+        insight("focal", ch.focalLine);
+        await ctl.wait(1300);
+        frame(panels[3], { max: 1.9, ms: 600 });
+        insight("sig", ch.sigLine);
         ["f", "t", "iso"].forEach((k, i) => { $(`[data-s="${k}"]`, win).textContent = ch.set[i]; });
         const tagBox = $(".pf-tags", win); tagBox.innerHTML = "";
-        for (const t of ch.tags) { const p = el("span", "", t); tagBox.appendChild(p); await ctl.wait(240); }
-        await ctl.wait(1800);
-        view(880);
+        await ctl.wait(450);
+        for (const t of ch.tags) { tagBox.appendChild(el("span", "", t)); await ctl.wait(200); }
+        await ctl.wait(900);
+        // The light you chase.
+        say("The light you chase, hour by hour.");
+        frame(panels[4], { max: 1.6, ms: 700 });
         insight("hours", ch.hourLine);
         const hmax = Math.max(...ch.hours);
         $$(".pf-hours i", win).forEach((b, h) => {
           b.style.height = `${Math.max(2, (ch.hours[h] / hmax) * 68)}px`;
           b.style.background = ch.hours[h] === hmax ? "var(--brand)" : h >= 5 && h < 9 ? "#f2b65a" : h >= 17 && h < 21 ? "#e8834d" : h >= 9 && h < 17 ? "var(--w-text-3)" : "#6a70c0";
         });
-        await ctl.wait(2400);
-        say("And the milestones: streaks, big days, how far you've come.");
-        view(1060);
+        await ctl.wait(1700);
+        frame(panels[5], { max: 1.8, ms: 650 });
         ["streak", "big", "since"].forEach((k, i) => { $(`[data-m="${k}"]`, win).textContent = ch.miles[i]; });
-        await ctl.wait(2800);
+        await ctl.wait(1500);
+        // The whole page for a breath, then the next chapter.
+        wide(1000);
+        await ctl.wait(1900);
       }
     }, 0.3);
   }
