@@ -8,12 +8,12 @@
     <language>en</language>
     <item>
       <title>RAWdemption 1.1</title>
-      <pubDate>Wed, 21 Oct 2026 19:13:38 GMT</pubDate>
-      <sparkle:version>2</sparkle:version>
+      <pubDate>Wed, 21 Oct 2026 19:14:50 GMT</pubDate>
+      <sparkle:version>3</sparkle:version>
       <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<ul><li>Lightbox is now RAWdemption: the same app, a new name. Your folders, settings and edits come with it.</li><li>macOS may ask once more to let it read your photo drives.</li></ul>]]></description>
-      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-1.1.zip" length="2414513" type="application/octet-stream" sparkle:edSignature="r4Bmrn1OBApmJ+9/Nn/jHrZDvWW4+5tAMCV4v2UnvC1rCfV1nQET/84mM7lT9zy3RIJjfvpgGurpXPfN1qYpCQ=="/>
+      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-1.1.zip" length="2414514" type="application/octet-stream" sparkle:edSignature="G/sehHU4OB3k3B+5mSUdXlsLC7e3rKfysCYwT0H0bsYhcR9tOsZn0X4KmDVAQHgElaLSlVXXvfQCbE48UxRLBg=="/>
     </item>
   </channel>
 </rss>
