@@ -934,10 +934,192 @@
     steps.forEach((b, k) => b.addEventListener("click", () => { show(k); runner.restart(); }));
   }
 
+  // ---------- Made around you: the profile page, playing through a photographer's periods ----------
+  function buildYou() {
+    const film = $("#you-film"), caption = $("#you-caption");
+    if (!film) return;
+    const cam = el("div", "cam"); film.appendChild(cam);
+    const fit = () => { cam.style.transform = `scale(${film.clientWidth / 1200})`; };
+    new ResizeObserver(fit).observe(film); fit();
+    const svg = (d, fill) => `<svg viewBox="0 0 24 24"><path d="${d}" fill="${fill ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const G = {
+      sunset: svg("M3 17h18M6 13.5a6 6 0 0 1 12 0M12 3v4M4.6 7.6l2 2M19.4 7.6l-2 2M9 20h6"),
+      camera: svg("M4 8h3l1.5-2h7L17 8h3v11H4zM12 17a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"),
+      flame: svg("M12 21c-3.5 0-6-2.4-6-5.6 0-3.3 3-5 3.5-8.4 2.3 1.4 3 3.3 3 4.6 1-.6 1.6-1.8 1.6-3 2.4 1.7 3.9 4 3.9 6.8 0 3.2-2.5 5.6-6 5.6z", true),
+      trophy: svg("M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7"),
+      spark: svg("M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z", true),
+      glass: svg("M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"),
+    };
+    const win = el("div", "window"); cam.appendChild(win);
+    win.innerHTML = `
+      <div class="titlebar"><div class="lights"><i></i><i></i><i></i></div><div class="tb-title">Your Profile</div></div>
+      <div class="pf-scroll">
+        <div class="pf-head"><div class="pf-avatar">${G.sunset}</div>
+          <div><div class="pf-greet"></div><div class="pf-date"></div></div>
+          <div class="pf-support"><span>Join on Patreon</span><span class="tip">♥ Support the project</span></div></div>
+        <div class="pf-tabs"><i></i>${["Today", "This week", "Last week", "This month", "This year", "All time"].map((t) => `<b>${t}</b>`).join("")}</div>
+        <div class="pf-sum"></div>
+        <div class="pf-tiles">
+          <div class="pf-tile"><div class="lbl">${G.camera}Taken</div><div class="num" data-k="taken">0</div><div class="delta"></div></div>
+          <div class="pf-tile"><div class="lbl">${icon("edited")}Edited</div><div class="num" data-k="edited">0</div><div class="delta"></div></div>
+          <div class="pf-tile"><div class="lbl">${icon("bolt")}Exported</div><div class="num" data-k="exported">0</div><div class="delta"></div></div>
+          <div class="pf-tile fav"><div class="lbl">${icon("heart-fill")}Favourites</div><div class="num" data-k="favs">0</div><div class="delta"></div><div class="pf-burst"></div></div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-panel"><h4>Cameras</h4><div class="insight" data-i="cam"></div><div class="pf-rank" data-r="cams"></div></div>
+          <div class="pf-panel"><h4>Lenses</h4><div class="insight" data-i="lens"></div><div class="pf-rank" data-r="lenses"></div></div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-panel"><h4>Focal lengths</h4><div class="insight" data-i="focal"></div><div class="pf-fav"></div>
+            <div class="pf-bands">${["Ultra-wide", "Wide", "Standard", "Portrait", "Telephoto"].map((b) => `<div><i></i><span>${b}</span></div>`).join("")}</div></div>
+          <div class="pf-panel"><h4>Your signature settings</h4><div class="insight" data-i="sig"></div>
+            <div class="pf-settings"><div><b data-s="f"></b><span>aperture</span></div><div><b data-s="t"></b><span>shutter</span></div><div><b data-s="iso"></b><span>typical ISO</span></div></div>
+            <div class="pf-tags"></div></div>
+        </div>
+        <div class="pf-row" style="grid-template-columns: 1fr">
+          <div class="pf-panel"><h4>When you shoot</h4><div class="insight" data-i="hours"></div>
+            <div class="pf-hours">${"<i></i>".repeat(24)}</div><div class="pf-axis"><span>0:00</span><span>6:00</span><span>12:00</span><span>18:00</span><span>23:00</span></div></div>
+        </div>
+        <div class="pf-row" style="grid-template-columns: 1fr">
+          <div class="pf-panel"><h4>Milestones</h4><div class="pf-miles">
+            <div>${G.flame}<p style="margin:0"><b data-m="streak"></b><span>days in a row with an edit</span></p></div>
+            <div>${G.spark}<p style="margin:0"><b data-m="big"></b><span>biggest day of shooting</span></p></div>
+            <div>${G.glass}<p style="margin:0"><b data-m="since"></b><span>oldest photo in your library</span></p></div>
+          </div></div>
+        </div>
+      </div>`;
+
+    // Three chapters of one photographer's year; each changes the period, the greeting and the race.
+    const hours = (peaks) => Array.from({ length: 24 }, (_, h) => peaks.reduce((v, [c, w, a]) => v + a * Math.exp(-((h - c) ** 2) / (2 * w * w)), 0));
+    const CH = [
+      { tab: 1, greet: "Good evening, Sam", date: "Thursday 22 October", sum: "42 photos taken this week, 18 edited, 12 exported.",
+        n: { taken: 42, edited: 18, exported: 12, favs: 6 }, d: ["▲ 11 more than this point last week", "▲ 7 more than this point last week", "", "14% keepers"],
+        cams: [["Sony ZV-E10", 24], ["RICOH GR III", 15], ["iPhone 15 Pro", 3]], camLine: "Your Sony ZV-E10 took 6 of every 10 photos.",
+        lenses: [["Sigma 30mm F1.4 DC DN", 18], ["GR Lens 18.3mm F2.8", 15], ["E PZ 16-50mm", 6], ["iPhone 15 Pro", 3]], lensLine: "Your Sigma 30mm stays on the camera most.",
+        bands: [0, 9, 22, 3, 0], fav: "45 mm", focalLine: "Around 50 mm: the honest normal lens.",
+        set: ["ƒ/2", "1/250 s", "ISO 400"], sigLine: "Shallow focus, everyday shutter speeds and moderate ISO.",
+        tags: ["Golden-hour chaser", "Prime lover", "Bokeh fan"], hours: hours([[18, 1.3, 9], [12, 1, 2]]), hourLine: "Golden hour: busiest around 18:00",
+        miles: ["5 days", "17 photos on 19 October", "Shooting since 2019"] },
+      { tab: 3, greet: "Good morning, Sam. Fresh light today?", date: "Saturday 31 October", sum: "186 photos taken this month, 74 edited, 51 exported. Your RICOH GR III did most of the work.",
+        n: { taken: 186, edited: 74, exported: 51, favs: 19 }, d: ["▲ 52 more than this point last month", "▲ 31 more than this point last month", "▲ 20 more than this point last month", "10% keepers"],
+        cams: [["RICOH GR III", 92], ["Sony ZV-E10", 81], ["iPhone 15 Pro", 13]], camLine: "Your RICOH GR III and Sony ZV-E10 share the work almost equally.",
+        lenses: [["GR Lens 18.3mm F2.8", 92], ["Sigma 30mm F1.4 DC DN", 60], ["E PZ 16-50mm", 21], ["iPhone 15 Pro", 13]], lensLine: "Your GR lens stays on the camera most: 5 of every 10 photos.",
+        bands: [2, 105, 62, 17, 0], fav: "28 mm", focalLine: "Around 28 mm: the classic street and travel view.",
+        set: ["ƒ/2.8", "1/500 s", "ISO 200"], sigLine: "Shallow focus, a fast shutter that freezes the moment and low ISO in good light.",
+        tags: ["Street & travel eye", "Early bird", "Prime lover", "Daylight shooter"], hours: hours([[7, 1.2, 8], [17, 1.5, 4]]), hourLine: "An early riser: busiest around 7:00",
+        miles: ["11 days", "64 photos on 24 October", "Shooting since 2019"] },
+      { tab: 4, greet: "Working late, Sam?", date: "Friday 27 November", sum: "1,240 photos taken this year, 520 edited, 310 exported. Your Sony ZV-E10 did most of the work.",
+        n: { taken: 1240, edited: 520, exported: 310, favs: 96 }, d: ["▲ 240 more than this point last year", "▲ 180 more than this point last year", "▲ 95 more than this point last year", "8% keepers"],
+        cams: [["Sony ZV-E10", 610], ["RICOH GR III", 540], ["iPhone 15 Pro", 90]], camLine: "Your Sony ZV-E10 leads, just.",
+        lenses: [["GR Lens 18.3mm F2.8", 540], ["Sigma 30mm F1.4 DC DN", 410], ["E PZ 16-50mm", 200], ["iPhone 15 Pro", 90]], lensLine: "Your GR lens stays on the camera most: 4 of every 10 photos.",
+        bands: [40, 610, 450, 140, 0], fav: "28 mm", focalLine: "Around 28 mm: the classic street and travel view.",
+        set: ["ƒ/2.8", "1/250 s", "ISO 800"], sigLine: "Shallow focus, everyday shutter speeds and moderate ISO.",
+        tags: ["RAW purist", "Street & travel eye", "Golden-hour chaser", "Prime lover", "Deliberate shooter", "Night owl"], hours: hours([[18, 1.6, 7], [8, 1.2, 3], [22, 1, 3]]), hourLine: "Golden hour: busiest around 18:00",
+        miles: ["14 days", "212 photos on 14 June", "Shooting since 2019"] },
+    ];
+
+    const scroll = $(".pf-scroll", win), greet = $(".pf-greet", win), tabs = $$(".pf-tabs b", win), pill = $(".pf-tabs i", win);
+    const nums = $$(".pf-tile .num", win), deltas = $$(".pf-tile .delta", win), burst = $(".pf-burst", win);
+    const values = { taken: 0, edited: 0, exported: 0, favs: 0 };
+    const fmt = (v) => Math.round(v).toLocaleString("en-US");
+    const say = (t) => { caption.style.opacity = 0; setTimeout(() => { caption.textContent = t; caption.style.opacity = 1; }, 250); };
+    const tab = (i) => { tabs.forEach((b, k) => b.classList.toggle("on", k === i)); pill.style.left = tabs[i].offsetLeft + "px"; pill.style.width = tabs[i].offsetWidth + "px"; };
+    const count = (k, to, ms = 1100) => {
+      const node = nums.find((n) => n.dataset.k === k), from = values[k], t0 = performance.now();
+      values[k] = to;
+      const step = (t) => { const p = reduce ? 1 : clamp((t - t0) / ms, 0, 1); node.textContent = fmt(from + (to - from) * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    };
+    const hearts = () => {
+      burst.innerHTML = "";
+      for (let i = 0; i < 9; i++) {
+        const a = (i / 9) * Math.PI * 2 - Math.PI / 2, r = 34 + (i % 3) * 10;
+        const h = document.createElementNS("http://www.w3.org/2000/svg", "svg"); h.innerHTML = '<use href="#i-heart-fill"/>';
+        h.style.setProperty("--dx", `${Math.cos(a) * r}px`); h.style.setProperty("--dy", `${Math.sin(a) * r}px`); h.style.animationDelay = `${i * 25}ms`;
+        burst.appendChild(h);
+      }
+    };
+    const rank = (box, items) => {
+      // Rows keep their element per name, so a new order slides them past each other.
+      const max = Math.max(...items.map((x) => x[1]), 1), total = items.reduce((a, x) => a + x[1], 0);
+      const seen = new Set();
+      items.forEach(([name, n], i) => {
+        let row = $$(".r", box).find((r) => r.dataset.n === name);
+        if (!row) {
+          row = el("div", "r"); row.dataset.n = name;
+          row.innerHTML = `<div class="top"><span class="star">★</span><span class="nm">${name}</span><span class="ct"></span></div><div class="track"><div class="fill"></div></div>`;
+          row.style.top = `${items.length * 46}px`; box.appendChild(row);
+          void row.offsetTop;  // new rows rise from below the list
+        }
+        seen.add(name);
+        row.style.top = `${i * 46}px`;
+        $(".fill", row).style.width = `${(n / max) * 100}%`;
+        $(".ct", row).textContent = `${fmt(n)} · ${Math.round((n / total) * 100)}%`;
+        row.classList.toggle("first", i === 0);
+      });
+      $$(".r", box).forEach((r) => { if (!seen.has(r.dataset.n)) r.remove(); });
+      box.style.height = `${items.length * 46}px`;
+    };
+    const insight = (key, text) => { const n = $(`[data-i="${key}"]`, win); n.style.opacity = 0; setTimeout(() => { n.textContent = text; n.style.opacity = 1; }, 220); };
+    const typeGreeting = async (ctl, text) => {
+      greet.innerHTML = '<span></span><i class="caret"></i>';
+      const span = greet.firstChild;
+      for (let i = 1; i <= text.length; i++) { span.textContent = text.slice(0, i); await ctl.wait(reduce ? 0 : 38); }
+      await ctl.wait(500); greet.querySelector(".caret")?.remove();
+    };
+    // Scrolls the page within the window, never past its end.
+    const view = (y) => { scroll.style.transform = `translateY(${-Math.max(0, Math.min(y, scroll.offsetHeight - 710))}px)`; };
+
+    whileVisible(film, async (ctl) => {
+      for (let c = 0; ; c = (c + 1) % CH.length) {
+        const ch = CH[c];
+        view(0);
+        say(c === 0 ? "It greets you like it knows you, because it does." : c === 1 ? "Mornings, evenings, weekends: it notices when you shoot." : "And it remembers the whole year.");
+        $(".pf-date", win).textContent = `${ch.date} · with RAWdemption since 2 March 2024`;
+        await typeGreeting(ctl, ch.greet);
+        tab(ch.tab); $(".pf-sum", win).textContent = ch.sum;
+        await ctl.wait(500);
+        say("Every photo you take, edit, export and love, counted for you.");
+        ["taken", "edited", "exported", "favs"].forEach((k, i) => setTimeout(() => count(k, ch.n[k]), i * 160));
+        deltas.forEach((d, i) => { d.textContent = ""; setTimeout(() => { d.textContent = ch.d[i]; d.style.color = i === 3 ? "var(--w-text-2)" : ""; }, 1300); });
+        await ctl.wait(1100); hearts();
+        await ctl.wait(1600);
+        say(c === 1 ? "Your cameras compete for first place, and the lead can change." : "Your cameras and lenses, ranked by what you actually use.");
+        view(250);
+        rank($('[data-r="cams"]', win), ch.cams); rank($('[data-r="lenses"]', win), ch.lenses);
+        insight("cam", ch.camLine); insight("lens", ch.lensLine);
+        await ctl.wait(3000);
+        say("It reads your style from the settings you choose and the light you chase.");
+        view(560);
+        const bmax = Math.max(...ch.bands, 1), btop = ch.bands.indexOf(bmax);
+        $$(".pf-bands i", win).forEach((b, i) => { b.style.height = `${Math.max(3, (ch.bands[i] / bmax) * 70)}px`; b.classList.toggle("top", i === btop); });
+        $(".pf-fav", win).innerHTML = `${ch.fav}<small>your favourite focal length</small>`;
+        insight("focal", ch.focalLine); insight("sig", ch.sigLine);
+        ["f", "t", "iso"].forEach((k, i) => { $(`[data-s="${k}"]`, win).textContent = ch.set[i]; });
+        const tagBox = $(".pf-tags", win); tagBox.innerHTML = "";
+        for (const t of ch.tags) { const p = el("span", "", t); tagBox.appendChild(p); await ctl.wait(240); }
+        await ctl.wait(1800);
+        view(880);
+        insight("hours", ch.hourLine);
+        const hmax = Math.max(...ch.hours);
+        $$(".pf-hours i", win).forEach((b, h) => {
+          b.style.height = `${Math.max(2, (ch.hours[h] / hmax) * 68)}px`;
+          b.style.background = ch.hours[h] === hmax ? "var(--brand)" : h >= 5 && h < 9 ? "#f2b65a" : h >= 17 && h < 21 ? "#e8834d" : h >= 9 && h < 17 ? "var(--w-text-3)" : "#6a70c0";
+        });
+        await ctl.wait(2400);
+        say("And the milestones: streaks, big days, how far you've come.");
+        view(1060);
+        ["streak", "big", "since"].forEach((k, i) => { $(`[data-m="${k}"]`, win).textContent = ch.miles[i]; });
+        await ctl.wait(2800);
+      }
+    }, 0.3);
+  }
+
   buildFilm();
   buildFeel();
   buildTiles();
   buildSpend();
+  buildYou();
 
   // ---------- Install: copy the command ----------
   $$("[data-copy]").forEach((b) => b.addEventListener("click", async () => {

@@ -20,7 +20,7 @@
     // Appearance before first paint: saved choice, else the system's.
     try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=4c919cba">
+  <link rel="stylesheet" href="styles.css?v=64396744">
 </head>
 <body>
 
@@ -68,6 +68,7 @@
     <div class="nav-links">
       <a class="opt" href="#why">Why</a>
       <a class="opt" href="#how">How it works</a>
+      <a class="opt" href="#you">You</a>
       <a class="opt" href="#features">Features</a>
       <a class="opt" href="#faq">FAQ</a>
       <a href="#download">Download</a>
@@ -83,7 +84,7 @@
     <p class="lede">Intuitive RAW editor for macOS. Free forever.<br><span class="by">Made by a fellow photographer.</span></p>
     <p class="motto">A hobby shouldn't come with a monthly rent.</p>
     <a class="btn touch" href="#download"><svg><use href="#i-down"/></svg>Install for Mac</a>
-    <div class="meta">Public beta · Only <span data-app-size>6.9 MB</span> · Apple silicon · macOS 13 or later</div>
+    <div class="meta">Public beta · Only <span data-app-size>7.0 MB</span> · Apple silicon · macOS 13 or later</div>
   </div>
 </header>
 
@@ -234,6 +235,15 @@
     </div>
   </section>
 
+  <section class="section" id="you">
+    <div class="wrap reveal">
+      <h2>Made around you</h2>
+      <p class="sub">RAWdemption gets to know the photographer behind the photos: the camera you reach for, the focal length you keep coming back to, the light you chase. It greets you by name, and all of it stays on your Mac.</p>
+      <div class="film you-film" id="you-film" style="margin-top:26px"></div>
+      <div class="caption" id="you-caption"></div>
+    </div>
+  </section>
+
   <section class="section" id="features">
     <div class="wrap reveal">
       <h2>What's in it</h2>
@@ -289,7 +299,7 @@
         <img class="icon" src="assets/icon.png" alt="RAWdemption icon">
         <div>
           <h2>Install RAWdemption</h2>
-          <div class="specs">Version <span data-version>0.9.8</span> beta · <span data-download-size>2.5 MB</span> download, <span data-app-size>6.9 MB</span> installed · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
+          <div class="specs">Version <span data-version>0.9.9</span> beta · <span data-download-size>2.6 MB</span> download, <span data-app-size>7.0 MB</span> installed · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
         </div>
       </div>
       <ol class="install">
@@ -322,6 +332,6 @@
 
 <script src="photos.js?v=cdf224a2"></script>
 <script src="hero.js?v=066ba3b1"></script>
-<script src="site.js?v=be4907d7"></script>
+<script src="site.js?v=b4ff1189"></script>
 </body>
 </html>
