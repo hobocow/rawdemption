@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Lightbox's update feed, read by the app (Sparkle). Written by tools/release.sh: do not edit items by hand,
+<!-- RAWdemption's update feed, read by the app (Sparkle). Written by tools/release.sh: do not edit items by hand,
      their signatures must match the archives in downloads/. -->
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Lightbox</title>
-    <description>Updates to Lightbox, the RAW editor for macOS.</description>
+    <title>RAWdemption</title>
+    <description>Updates to RAWdemption, the RAW editor for macOS.</description>
     <language>en</language>
     <item>
-      <title>Lightbox 1.0.1</title>
-      <pubDate>Wed, 21 Oct 2026 18:47:52 GMT</pubDate>
+      <title>RAWdemption 1.1</title>
+      <pubDate>Wed, 21 Oct 2026 19:13:38 GMT</pubDate>
       <sparkle:version>2</sparkle:version>
-      <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
+      <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<ul><li>Lightbox now looks for updates each time it opens, so fixes reach you sooner.</li></ul>]]></description>
-      <enclosure url="https://hobocow.github.io/lightbox/downloads/Lightbox-1.0.1.zip" length="2411740" type="application/octet-stream" sparkle:edSignature="D/JAl7rAogmQ8d68sReAPWWyddsyA/VmEWJqiJ/K94gZC36UBERPuLyY9M58WE+UzwP8Dl/ZFPpu/W29F2dWCA=="/>
-    </item>
-    <item>
-      <title>Lightbox 1.0</title>
-      <pubDate>Wed, 21 Oct 2026 18:44:35 GMT</pubDate>
-      <sparkle:version>1</sparkle:version>
-      <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
-      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<ul><li>First release.</li></ul>]]></description>
-      <enclosure url="https://hobocow.github.io/lightbox/downloads/Lightbox-1.0.zip" length="2411791" type="application/octet-stream" sparkle:edSignature="egT/hnumJiD6Uy7BbJok/pHvl92e9rumMZg831Di05Yh0GTtXxayuv7UqtAC3zoFuZy0Qd0/l+5c3ujcLYRKDg=="/>
+      <description><![CDATA[<ul><li>Lightbox is now RAWdemption: the same app, a new name. Your folders, settings and edits come with it.</li><li>macOS may ask once more to let it read your photo drives.</li></ul>]]></description>
+      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-1.1.zip" length="2414513" type="application/octet-stream" sparkle:edSignature="r4Bmrn1OBApmJ+9/Nn/jHrZDvWW4+5tAMCV4v2UnvC1rCfV1nQET/84mM7lT9zy3RIJjfvpgGurpXPfN1qYpCQ=="/>
     </item>
   </channel>
 </rss>
