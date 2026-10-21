@@ -510,3 +510,4 @@ footer a:hover { color: var(--text); }
 .why-cmd { margin-top: 6px; color: var(--text-3); font-size: 13px; max-width: 680px; }
 .why-cmd a { color: var(--text-2); text-decoration: underline; text-decoration-color: var(--hairline-strong); text-underline-offset: 3px; }
 .why-cmd code { font-size: 12px; }
+.letter p.free + p.soft { margin-top: 20px; }
