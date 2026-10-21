@@ -580,3 +580,5 @@ footer a:hover { color: var(--text); }
 .pf-miles div { display: flex; gap: 10px; align-items: flex-start; }
 .pf-miles svg { width: 16px; height: 16px; color: var(--brand); flex: none; margin-top: 2px; }
 .pf-miles b { display: block; font-size: 15px; font-variant-numeric: tabular-nums; } .pf-miles span { font-size: 11px; color: var(--w-text-2); }
+.supporter-note { margin: 10px 0 0; color: var(--text-3); font-size: 13px; max-width: 620px; }
+.supporter-note a { color: var(--text-2); text-decoration: underline; text-decoration-color: var(--hairline-strong); text-underline-offset: 3px; }

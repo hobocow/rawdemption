@@ -20,7 +20,7 @@
     // Appearance before first paint: saved choice, else the system's.
     try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=64396744">
+  <link rel="stylesheet" href="styles.css?v=53da76fc">
 </head>
 <body>
 
@@ -98,9 +98,8 @@
         <p>The free alternatives are capable, but dreadful to use: a chore, never a pleasure, even for a simple routine. Shoot, pick the keepers, make them look right, share them. RAWdemption is built for exactly that routine, and to feel good doing it.</p>
         <p>It's not meant to be a pro suite: no catalogue to maintain, no tethering, no print module, no wall of panels. Just the essentials, done with care, for enthusiasts, travellers and weekend shooters.</p>
         <p class="free"><svg aria-hidden="true"><use href="#i-check"/></svg>Free forever, for anyone.</p>
-        <p class="soft" data-needs="support">RAWdemption is made by one person. If it earns a place on your Mac, you can support it.</p>
-        <div class="row" data-needs="support"><a class="btn quiet touch" href="https://ko-fi.com/rawdemption" data-link="support">Tip on Ko-fi</a><a class="btn quiet touch" href="#" data-link="patreon" hidden>Join on Patreon · €2 a month</a></div>
-        <p class="soft patron" data-needs="patreon" hidden>Patrons get extras as they arrive, starting with custom gradient themes.</p>
+        <p class="soft" data-needs="patreon">RAWdemption is made by one person. If it earns a place on your Mac, you can support it on Patreon.</p>
+        <div class="row" data-needs="patreon"><a class="btn quiet touch" href="https://www.patreon.com/rawdemption" data-link="patreon"><svg><use href="#i-heart-fill"/></svg>Support on Patreon</a></div>
       </div>
       <aside class="spend" id="spend" aria-label="What a Lightroom plan adds up to, year by year">
         <div class="spend-stage">
@@ -239,6 +238,7 @@
     <div class="wrap reveal">
       <h2>Made for you</h2>
       <p class="sub">RAWdemption gets to know the photographer behind the photos: the camera you reach for, the focal length you keep coming back to, the light you chase. All of it stays on your Mac.</p>
+      <p class="supporter-note">The full profile comes with a €2 a month <a href="https://www.patreon.com/rawdemption" data-link="patreon">Patreon membership</a>. Editing, exporting and everything else stay free and unlimited, for everyone.</p>
       <div class="film you-film" id="you-film" style="margin-top:26px"></div>
       <div class="caption" id="you-caption"></div>
     </div>
@@ -299,7 +299,7 @@
         <img class="icon" src="assets/icon.png" alt="RAWdemption icon">
         <div>
           <h2>Install RAWdemption</h2>
-          <div class="specs">Version <span data-version>0.9.9</span> beta · <span data-download-size>2.6 MB</span> download, <span data-app-size>7.0 MB</span> installed · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
+          <div class="specs">Version <span data-version>0.9.10</span> beta · <span data-download-size>2.6 MB</span> download, <span data-app-size>7.0 MB</span> installed · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
         </div>
       </div>
       <ol class="install">
@@ -311,7 +311,7 @@
       </ol>
       <p class="why-cmd">Why a command? RAWdemption isn't notarised by Apple yet (that takes a paid developer membership), and macOS labels such apps “damaged” when a browser downloads them. They aren't; the command simply installs without that label.
         Prefer the zip? <a href="downloads/RAWdemption.zip" download>Download it</a>, move RAWdemption to Applications, then run <code>xattr -dr com.apple.quarantine /Applications/RAWdemption.app</code> once in Terminal.</p>
-      <div class="row" data-needs="support"><a class="btn quiet touch" href="https://ko-fi.com/rawdemption" data-link="support">Tip on Ko-fi</a><a class="btn quiet touch" href="#" data-link="patreon" hidden>Join on Patreon</a></div>
+      <div class="row" data-needs="patreon"><a class="btn quiet touch" href="https://www.patreon.com/rawdemption" data-link="patreon"><svg><use href="#i-heart-fill"/></svg>Support on Patreon</a></div>
       <p class="beta-note">RAWdemption is in public beta: ready for real photos, still finding its feet. If something looks off, Help › Report a Problem sends a note with the details filled in, and fixes arrive as updates the next time you open it.</p>
     </div>
   </section>
@@ -324,14 +324,13 @@
       <a href="#faq">FAQ</a>
       <a href="privacy.html">Privacy</a>
       <a href="mailto:karate.seating4j@icloud.com" data-link="contact">Contact</a>
-      <a href="https://ko-fi.com/rawdemption" data-link="support">Ko-fi</a>
-      <a href="#" data-link="patreon" hidden>Patreon</a>
+      <a href="https://www.patreon.com/rawdemption" data-link="patreon">Patreon</a>
     </div>
   </div>
 </footer>
 
 <script src="photos.js?v=cdf224a2"></script>
 <script src="hero.js?v=066ba3b1"></script>
-<script src="site.js?v=edf59c21"></script>
+<script src="site.js?v=5c3bfba8"></script>
 </body>
 </html>

@@ -7,6 +7,15 @@
     <description>Updates to RAWdemption, the RAW editor for macOS.</description>
     <language>en</language>
     <item>
+      <title>RAWdemption 0.9.10</title>
+      <pubDate>Wed, 21 Oct 2026 23:46:01 GMT</pubDate>
+      <sparkle:version>14</sparkle:version>
+      <sparkle:shortVersionString>0.9.10</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Your profile&#x27;s detailed side (cameras, lenses, focal lengths, style and more) is now a thank-you for supporters on Patreon. Everyone keeps the main figures, and editing stays free and unlimited.</li><li>A smoother icon picker.</li></ul>]]></description>
+      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.10.zip" length="2572277" type="application/octet-stream" sparkle:edSignature="0gGlCJpQ3c/xkrxU2zV072eMPV9rimehNaDYuyY++HSjOF2oWt1tdovm0yqCfVjCcR1khnp90qpQcI4F4zq4BA=="/>
+    </item>
+    <item>
       <title>RAWdemption 0.9.9</title>
       <pubDate>Wed, 21 Oct 2026 23:05:58 GMT</pubDate>
       <sparkle:version>13</sparkle:version>
@@ -86,15 +95,6 @@
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<ul><li>Fixes RAWdemption not opening (&quot;the executable is missing&quot;).</li></ul>]]></description>
       <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.1.zip" length="2415143" type="application/octet-stream" sparkle:edSignature="3yWf/X5SgqsWMmZYFIaOE5HAIGbT4U929VYeiZbC2HBoZxzQoLKqxbUIZEXF3megQ1yExKOcwFb5k9zUxBQJAg=="/>
-    </item>
-    <item>
-      <title>RAWdemption 0.9.0</title>
-      <pubDate>Wed, 21 Oct 2026 19:39:18 GMT</pubDate>
-      <sparkle:version>4</sparkle:version>
-      <sparkle:shortVersionString>0.9.0</sparkle:shortVersionString>
-      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<ul><li>RAWdemption is now a public beta, numbered 0.9. Same app; if something looks off, Help › Report a Problem tells us.</li></ul>]]></description>
-      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.0.zip" length="2416202" type="application/octet-stream" sparkle:edSignature="8dJJCWnTPwKHmdSjiaDvlsmFJ2uB+OjhGIylIPmErFNJm1EcczKfCmzmaBTQ0kQ8ZinbWs4LN8i3Qwudmm+DDg=="/>
     </item>
   </channel>
 </rss>

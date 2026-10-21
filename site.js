@@ -956,7 +956,7 @@
       <div class="pf-scroll">
         <div class="pf-head"><div class="pf-avatar">${G.sunset}</div>
           <div><div class="pf-greet"></div><div class="pf-date"></div></div>
-          <div class="pf-support"><span>Join on Patreon</span><span class="tip">♥ Support the project</span></div></div>
+          <div class="pf-support"><span class="tip">♥ Support the project</span></div></div>
         <div class="pf-tabs"><i></i>${["Today", "This week", "Last week", "This month", "This year", "All time"].map((t) => `<b>${t}</b>`).join("")}</div>
         <div class="pf-sum"></div>
         <div class="pf-tiles">
@@ -1085,75 +1085,95 @@
     const q = (sel) => $(sel, win);
     const tiles = $$(".pf-tile", win), panels = $$(".pf-panel", win);
 
+    // Before a run: an empty page, so every figure climbs from nothing.
+    const reset = () => {
+      Object.keys(values).forEach((k) => { values[k] = 0; });
+      nums.forEach((n) => { n.textContent = "0"; }); deltas.forEach((d) => { d.textContent = ""; });
+      tabs.forEach((b) => b.classList.remove("on")); pill.style.width = "0px";
+      $(".pf-sum", win).textContent = ""; greet.textContent = "";
+      $$(".pf-rank", win).forEach((r) => { r.innerHTML = ""; r.style.height = "0px"; });
+      $$("[data-i]", win).forEach((n) => { n.textContent = ""; });
+      $$(".pf-bands i", win).forEach((b) => { b.style.height = "3px"; b.classList.remove("top"); });
+      $(".pf-fav", win).textContent = ""; $(".pf-tags", win).innerHTML = "";
+      ["f", "t", "iso"].forEach((k) => { $(`[data-s="${k}"]`, win).textContent = ""; });
+      $$(".pf-hours i", win).forEach((b) => { b.style.height = "2px"; });
+      ["streak", "big", "since"].forEach((k) => { $(`[data-m="${k}"]`, win).textContent = ""; });
+    };
+
+    // One take, played once: the year so far. Then the page stays, finished, as the app shows it.
+    const ch = CH[2];
+    const early = { cams: [["RICOH GR III", 140], ["Sony ZV-E10", 118], ["iPhone 15 Pro", 30]],
+                    lenses: [["GR Lens 18.3mm F2.8", 140], ["Sigma 30mm F1.4 DC DN", 96], ["E PZ 16-50mm", 22], ["iPhone 15 Pro", 30]] };
+    let played = false;
     whileVisible(film, async (ctl) => {
-      let first = true;
-      for (let c = 0; ; c = (c + 1) % CH.length) {
-        const ch = CH[c];
-        // The greeting, close up.
-        $(".pf-date", win).textContent = `${ch.date} · with RAWdemption since 2 March 2024`;
-        frame(q(".pf-head"), { max: 1.7, ms: first ? 0 : 900 });
-        first = false;
-        say(["A week of shooting, read back to you.", "A month. The lead changes hands.", "And the whole year, at a glance."][c]);
-        await typeGreeting(ctl, ch.greet);
-        // Into the dates: the highlight races across them and lands.
-        frame(q(".pf-tabs"), { max: 2.2, ms: 600 });
-        await ctl.wait(520);
-        const path = c === 0 ? [0, 1, 2, 1] : c === 1 ? [1, 2, 3, 4, 3] : [3, 4, 5, 4];
-        for (const i of path) { tab(i); await ctl.wait(170); }
-        $(".pf-sum", win).textContent = ch.sum;
-        await ctl.wait(260);
-        // Each figure in turn, counting as the camera arrives.
-        for (const [i, k] of ["taken", "edited", "exported", "favs"].entries()) {
-          frame(tiles[i], { max: 2.6, pad: 18, ms: 520 });
-          await ctl.wait(300);
-          count(k, ch.n[k], 700);
-          deltas[i].textContent = "";
-          setTimeout(() => { deltas[i].textContent = ch.d[i]; deltas[i].style.color = i === 3 ? "var(--w-text-2)" : ""; }, 560);
-          if (k === "favs") { await ctl.wait(420); hearts(); await ctl.wait(500); }
-          await ctl.wait(560);
-        }
-        // Pull back: all four, then the gear race.
-        frame(q(".pf-tiles"), { max: 1.6, ms: 600 });
+      if (played) return;
+      reset();
+      $(".pf-date", win).textContent = `${ch.date} · with RAWdemption since 2 March 2024`;
+      frame(q(".pf-head"), { max: 1.7, ms: 0 });
+      say("A year of photography, read back to you.");
+      await ctl.wait(400);
+      await typeGreeting(ctl, "Good evening, Sam");
+      // Into the dates: the highlight races across them and lands on the year.
+      frame(q(".pf-tabs"), { max: 2.2, ms: 600 });
+      await ctl.wait(520);
+      for (const i of [0, 1, 2, 3, 4]) { tab(i); await ctl.wait(i === 4 ? 0 : 150); }
+      $(".pf-sum", win).textContent = ch.sum;
+      await ctl.wait(300);
+      // Each figure in turn, counting up as the camera arrives.
+      say("Every photo you take, edit, export and love.");
+      for (const [i, k] of ["taken", "edited", "exported", "favs"].entries()) {
+        frame(tiles[i], { max: 2.6, pad: 18, ms: 520 });
+        await ctl.wait(280);
+        count(k, ch.n[k], 900);
+        setTimeout(() => { deltas[i].textContent = ch.d[i]; deltas[i].style.color = i === 3 ? "var(--w-text-2)" : ""; }, 700);
+        if (k === "favs") { await ctl.wait(520); hearts(); await ctl.wait(450); }
         await ctl.wait(700);
-        frame(panels[0], { max: 1.9, ms: 650 });
-        say(c === 1 ? "Your cameras compete for first place, and the lead can change." : "The cameras and lenses you actually reach for.");
-        rank($('[data-r="cams"]', win), ch.cams); insight("cam", ch.camLine);
-        await ctl.wait(1500);
-        frame(panels[1], { max: 1.9, ms: 600 });
-        rank($('[data-r="lenses"]', win), ch.lenses); insight("lens", ch.lensLine);
-        await ctl.wait(1400);
-        // What you see, and how you expose it.
-        say("Your style, read from the settings you choose.");
-        frame(panels[2], { max: 1.9, ms: 650 });
-        const bmax = Math.max(...ch.bands, 1), btop = ch.bands.indexOf(bmax);
-        $$(".pf-bands i", win).forEach((b, i) => { b.style.height = `${Math.max(3, (ch.bands[i] / bmax) * 70)}px`; b.classList.toggle("top", i === btop); });
-        $(".pf-fav", win).innerHTML = `${ch.fav}<small>your favourite focal length</small>`;
-        insight("focal", ch.focalLine);
-        await ctl.wait(1300);
-        frame(panels[3], { max: 1.9, ms: 600 });
-        insight("sig", ch.sigLine);
-        ["f", "t", "iso"].forEach((k, i) => { $(`[data-s="${k}"]`, win).textContent = ch.set[i]; });
-        const tagBox = $(".pf-tags", win); tagBox.innerHTML = "";
-        await ctl.wait(450);
-        for (const t of ch.tags) { tagBox.appendChild(el("span", "", t)); await ctl.wait(200); }
-        await ctl.wait(900);
-        // The light you chase.
-        say("The light you chase, hour by hour.");
-        frame(panels[4], { max: 1.6, ms: 700 });
-        insight("hours", ch.hourLine);
-        const hmax = Math.max(...ch.hours);
-        $$(".pf-hours i", win).forEach((b, h) => {
-          b.style.height = `${Math.max(2, (ch.hours[h] / hmax) * 68)}px`;
-          b.style.background = ch.hours[h] === hmax ? "var(--brand)" : h >= 5 && h < 9 ? "#f2b65a" : h >= 17 && h < 21 ? "#e8834d" : h >= 9 && h < 17 ? "var(--w-text-3)" : "#6a70c0";
-        });
-        await ctl.wait(1700);
-        frame(panels[5], { max: 1.8, ms: 650 });
-        ["streak", "big", "since"].forEach((k, i) => { $(`[data-m="${k}"]`, win).textContent = ch.miles[i]; });
-        await ctl.wait(1500);
-        // The whole page for a breath, then the next chapter.
-        wide(1000);
-        await ctl.wait(1900);
       }
+      frame(q(".pf-tiles"), { max: 1.6, ms: 600 });
+      await ctl.wait(650);
+      // The race: spring's leader is overtaken by the year's.
+      say("Your cameras and lenses, and the lead changing hands.");
+      frame(panels[0], { max: 1.9, ms: 650 });
+      rank($('[data-r="cams"]', win), early.cams);
+      await ctl.wait(900);
+      rank($('[data-r="cams"]', win), ch.cams); insight("cam", ch.camLine);
+      await ctl.wait(1300);
+      frame(panels[1], { max: 1.9, ms: 600 });
+      rank($('[data-r="lenses"]', win), early.lenses);
+      await ctl.wait(800);
+      rank($('[data-r="lenses"]', win), ch.lenses); insight("lens", ch.lensLine);
+      await ctl.wait(1200);
+      // What you see, and how you expose it.
+      say("Your style, read from the settings you choose.");
+      frame(panels[2], { max: 1.9, ms: 650 });
+      const bmax = Math.max(...ch.bands, 1), btop = ch.bands.indexOf(bmax);
+      $$(".pf-bands i", win).forEach((b, i) => { b.style.height = `${Math.max(3, (ch.bands[i] / bmax) * 70)}px`; b.classList.toggle("top", i === btop); });
+      $(".pf-fav", win).innerHTML = `${ch.fav}<small>your favourite focal length</small>`;
+      insight("focal", ch.focalLine);
+      await ctl.wait(1300);
+      frame(panels[3], { max: 1.9, ms: 600 });
+      insight("sig", ch.sigLine);
+      ["f", "t", "iso"].forEach((k, i) => { $(`[data-s="${k}"]`, win).textContent = ch.set[i]; });
+      await ctl.wait(400);
+      for (const t of ch.tags) { $(".pf-tags", win).appendChild(el("span", "", t)); await ctl.wait(190); }
+      await ctl.wait(800);
+      // The light you chase.
+      say("The light you chase, hour by hour.");
+      frame(panels[4], { max: 1.6, ms: 700 });
+      insight("hours", ch.hourLine);
+      const hmax = Math.max(...ch.hours);
+      $$(".pf-hours i", win).forEach((b, h) => {
+        b.style.height = `${Math.max(2, (ch.hours[h] / hmax) * 68)}px`;
+        b.style.background = ch.hours[h] === hmax ? "var(--brand)" : h >= 5 && h < 9 ? "#f2b65a" : h >= 17 && h < 21 ? "#e8834d" : h >= 9 && h < 17 ? "var(--w-text-3)" : "#6a70c0";
+      });
+      await ctl.wait(1600);
+      frame(panels[5], { max: 1.8, ms: 650 });
+      ["streak", "big", "since"].forEach((k, i) => { $(`[data-m="${k}"]`, win).textContent = ch.miles[i]; });
+      await ctl.wait(1400);
+      // The whole page, finished: it stays like this.
+      say("All of it from your own photos, on your Mac.");
+      wide(1100);
+      played = true;
     }, 0.3);
   }
 
