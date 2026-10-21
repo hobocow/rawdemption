@@ -7,6 +7,15 @@
     <description>Updates to Lightbox, the RAW editor for macOS.</description>
     <language>en</language>
     <item>
+      <title>Lightbox 1.0.1</title>
+      <pubDate>Wed, 21 Oct 2026 18:47:52 GMT</pubDate>
+      <sparkle:version>2</sparkle:version>
+      <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Lightbox now looks for updates each time it opens, so fixes reach you sooner.</li></ul>]]></description>
+      <enclosure url="https://hobocow.github.io/lightbox/downloads/Lightbox-1.0.1.zip" length="2411740" type="application/octet-stream" sparkle:edSignature="D/JAl7rAogmQ8d68sReAPWWyddsyA/VmEWJqiJ/K94gZC36UBERPuLyY9M58WE+UzwP8Dl/ZFPpu/W29F2dWCA=="/>
+    </item>
+    <item>
       <title>Lightbox 1.0</title>
       <pubDate>Wed, 21 Oct 2026 18:44:35 GMT</pubDate>
       <sparkle:version>1</sparkle:version>
