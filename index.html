@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lightbox — RAW editor for macOS</title>
+  <meta name="description" content="Intuitive RAW editor for macOS. Free forever. A hobby shouldn't come with a monthly rent.">
+  <meta name="theme-color" content="#09080f">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lightbox — RAW editor for macOS">
+  <meta property="og:description" content="Intuitive RAW editor for macOS. Free forever. A hobby shouldn't come with a monthly rent.">
+  <meta property="og:image" content="https://hobocow.github.io/lightbox/assets/og.png" data-link="og-image">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://hobocow.github.io/lightbox/" data-link="site">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" type="application/rss+xml" title="Lightbox updates" href="appcast.xml">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <script>
+    // Appearance before first paint: saved choice, else the system's.
+    try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Icons, drawn after the SF Symbols the app uses -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></symbol>
+    <symbol id="i-heart-fill" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M13.6 2.5 5 13.4h6l-1.6 8.1 8.6-10.9h-6z"/></symbol>
+    <symbol id="i-crop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6.5 2.5v13.5a1.5 1.5 0 0 0 1.5 1.5h13.5M2.5 6.5H16a1.5 1.5 0 0 1 1.5 1.5v13.5"/></symbol>
+    <symbol id="i-mask" viewBox="-6 -22 112 100"><path fill="none" stroke="currentColor" stroke-width="7.5" stroke-linejoin="round" d="M0 16.8C12 0 38 1.1 50 10.1C62 1.1 88 0 100 16.8C104 40.3 86 57.1 66 56C56 54.9 54 41.4 50 41.4C46 41.4 44 54.9 34 56C14 57.1-4 40.3 0 16.8ZM15.5 20.2Q29 10.1 42.5 33.6Q29 41.2 15.5 20.2ZM57.5 33.6Q71 10.1 84.5 20.2Q71 41.2 57.5 33.6Z"/></symbol>
+    <symbol id="i-mask-fill" viewBox="-6 -22 112 100"><path fill="currentColor" fill-rule="evenodd" d="M0 16.8C12 0 38 1.1 50 10.1C62 1.1 88 0 100 16.8C104 40.3 86 57.1 66 56C56 54.9 54 41.4 50 41.4C46 41.4 44 54.9 34 56C14 57.1-4 40.3 0 16.8ZM15.5 20.2Q29 10.1 42.5 33.6Q29 41.2 15.5 20.2ZM57.5 33.6Q71 10.1 84.5 20.2Q71 41.2 57.5 33.6Z"/></symbol>
+    <symbol id="i-invert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M12 3.8a8.2 8.2 0 0 0 0 16.4z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m14.5 6-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m9.5 6 6 6-6 6"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M3.5 7.5 12 3.5l8.5 4v9L12 20.5l-8.5-4zM3.5 7.5 12 11.5l8.5-4M12 11.5v9M7.8 5.5l8.4 4"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M8 2.8h9.2a1.8 1.8 0 0 1 1.8 1.8v14.8a1.8 1.8 0 0 1-1.8 1.8H6.8A1.8 1.8 0 0 1 5 19.4V5.8z"/><path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M9.5 5.5v3M12 5.5v3M14.5 5.5v3"/></symbol>
+    <symbol id="i-photos" viewBox="0 0 24 24"><rect x="3" y="6" width="15" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path fill="none" stroke="currentColor" stroke-width="1.7" d="M7 3.5h11.5A2.5 2.5 0 0 1 21 6v10"/><path fill="currentColor" d="m4.5 17 4-4.5 3 3 2-2 3.5 3.5z"/></symbol>
+    <symbol id="i-edited" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-sort" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M8 20V4M4 8l4-4 4 4M16 4v16M12 16l4 4 4-4"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M7 12h10M10 17h4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="m15.5 15.5 5 5"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 11v5.5"/><circle cx="12" cy="7.8" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-compare" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path fill="currentColor" d="M12 4.5h6a2.5 2.5 0 0 1 2.5 2.5v10a2.5 2.5 0 0 1-2.5 2.5h-6z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11.5" height="12.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path fill="none" stroke="currentColor" stroke-width="1.7" d="M16 5.5V5a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 5v10A1.5 1.5 0 0 0 6 16.5h.5"/></symbol>
+    <symbol id="i-paste" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="9" y="3" width="6" height="4" rx="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m-5-5 5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9M4.5 4.5V9H9"/></symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M19.5 3.5 10 13l1.8 1.8 9.5-9.5zM9 14c-2 0-3.5 1.5-3.5 3.5 0 1-.7 2-2 2.5 1.2.6 2.6 1 4 1 2.5 0 4.3-1.8 4.3-4.3z"/></symbol>
+    <symbol id="i-linear" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path fill="currentColor" d="M3.5 6.5a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3V11h-17z" opacity=".55"/></symbol>
+    <symbol id="i-radial" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="6.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M19.5 14.5A7.8 7.8 0 0 1 9.5 4.5a7.8 7.8 0 1 0 10 10z"/></symbol>
+    <symbol id="i-cursor" viewBox="0 0 24 24"><path fill="#fff" stroke="#111" stroke-width="1.2" stroke-linejoin="round" d="M4.5 2.8v16.6l4.2-4.1 2.7 6.2 2.8-1.2-2.7-6.1h5.9z"/></symbol>
+  </defs>
+</svg>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/icon.png" alt="">Lightbox</a>
+    <div class="nav-links">
+      <a class="opt" href="#why">Why</a>
+      <a class="opt" href="#how">How it works</a>
+      <a class="opt" href="#features">Features</a>
+      <a class="opt" href="#faq">FAQ</a>
+      <a href="#download">Download</a>
+      <button class="theme" id="theme" title="Appearance"></button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-copy">
+    <h1>Lightbox</h1>
+    <p class="lede">Intuitive RAW editor for macOS. Free forever.</p>
+    <p class="motto">A hobby shouldn't come with a monthly rent.</p>
+    <a class="btn touch" href="downloads/Lightbox.zip" download><svg><use href="#i-down"/></svg>Download for Mac</a>
+    <div class="meta">Apple silicon · macOS 13 or later</div>
+  </div>
+</header>
+
+<main>
+  <section class="section" id="why">
+    <div class="wrap reveal">
+      <h2>Why Lightbox exists</h2>
+      <div class="letter" style="margin-top:18px">
+        <p>It began with a Lightroom renewal: around $150 for one more year of editing photos that were already taken. Every year, that same money could go to the things that actually make photographs: a fast prime, a weekend somewhere with good light, a few prints worth framing.</p>
+        <p>The free alternatives were capable, but heavy going for a simple routine: shoot, pick the keepers, make them look right, share them. Lightbox is built for exactly that routine, and to feel good doing it.</p>
+        <p>It isn't a professional suite, and that's deliberate. No catalogue to maintain, no tethering, no print module, no wall of panels. Just the essentials, done with care: light and colour, crop and straighten, masks, copy and paste, a quick export. Plenty for enthusiasts, travellers and weekend shooters, and light enough to stay out of the way.</p>
+        <p>Free forever: no subscription, no account, no watermark, no limit on how many photos you edit or export.</p>
+        <p class="soft" data-needs="support" hidden>Lightbox is made by one person. If it earns a place on your Mac, you can support it.</p>
+        <div class="row" data-needs="support" hidden><a class="btn quiet touch" href="#" data-link="support" hidden>Support Lightbox</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="wrap reveal">
+      <h2>How it works</h2>
+      <p class="sub">Card in, photos out. The whole routine, start to finish.</p>
+      <div class="chapters" id="chapters"></div>
+      <div class="film" id="film"></div>
+      <div class="caption" id="caption"></div>
+    </div>
+  </section>
+
+  <section class="section" id="feel">
+    <div class="wrap reveal">
+      <h2>Made to feel right</h2>
+      <p class="sub">Every control answers with a lift, a spring or a glide. Here they are, up close.</p>
+      <div class="film feel-film" id="feel-film" style="margin-top:26px"></div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="wrap reveal">
+      <h2>What's in it</h2>
+      <p class="sub">The essentials, and nothing that gets in the way. Click a card to replay it.</p>
+    </div>
+    <div class="wrap">
+      <div class="features">
+        <article class="tile reveal" data-demo="sort"><div class="demo"></div><div class="txt"><h3>Sort &amp; filter</h3><p>Sort by date, name or size. Filter by camera, lens and focal length. Search “35mm” or “2024”.</p></div></article>
+        <article class="tile reveal" data-demo="fav"><div class="demo"></div><div class="txt"><h3>Favorites <kbd>.</kbd></h3><p>Press . to heart a photo. Hearts are saved next to the photos, so they move with the folder.</p></div></article>
+        <article class="tile reveal" data-demo="paste"><div class="demo"></div><div class="txt"><h3>Copy &amp; paste edits <kbd>⇧⌘V</kbd></h3><p>Copy the edit from one photo and paste it on the rest. Crops and masks stay with their photo.</p></div></article>
+        <article class="tile reveal" data-demo="mask"><div class="demo"></div><div class="txt"><h3>Masks <kbd>M</kbd></h3><p>Brush, linear and radial. Each mask gets its own exposure, colour and clarity.</p></div></article>
+        <article class="tile reveal" data-demo="crop"><div class="demo"></div><div class="txt"><h3>Crop &amp; straighten <kbd>C</kbd></h3><p>Common ratios or free, plus straighten. It never leaves empty corners.</p></div></article>
+        <article class="tile reveal" data-demo="print"><div class="demo"></div><div class="txt"><h3>Border &amp; date</h3><p>Optional white border, and the capture date stamped in the corner like an old film camera.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap reveal">
+      <h2>Questions</h2>
+      <div class="faq">
+        <details>
+          <summary>Which cameras does it open?</summary>
+          <p>Lightbox develops RAW files with the RAW engine built into macOS, so it opens what Apple Photos opens: most cameras from Canon, Fujifilm, Leica, Nikon, Olympus/OM System, Panasonic, Pentax/Ricoh, Sony and more, plus DNG. Apple publishes the full list on its support site (“Digital camera RAW formats supported by macOS”), and new cameras arrive with macOS updates. JPEG, HEIC, PNG and TIFF open too.</p>
+        </details>
+        <details>
+          <summary>Does it change my photos?</summary>
+          <p>Never. Originals are only read. Each edit is a small recipe saved in a hidden <code>.lightbox</code> folder beside the photos, along with your favourites, so edits travel with the folder to another drive or Mac. Exports are always new files.</p>
+        </details>
+        <details>
+          <summary>Which Macs does it run on?</summary>
+          <p>Macs with Apple silicon (M1 or later) on macOS 13 Ventura or later. 16 GB of memory is recommended for smooth editing of 24-megapixel RAW files; Intel Macs aren't supported.</p>
+        </details>
+        <details>
+          <summary>Why does macOS ask before the first launch?</summary>
+          <p>Lightbox isn't sold through the App Store, and notarising it with Apple requires a paid membership, so macOS asks you to confirm it once. Move Lightbox to your Applications folder and open it, then go to System Settings › Privacy &amp; Security and click Open Anyway. On macOS 13 and 14, right-clicking Lightbox and choosing Open also works. After that it opens like any other app, and updates install without asking again. (Keep it in Applications: macOS doesn't let apps update themselves while they run from Downloads.)</p>
+        </details>
+        <details>
+          <summary>How do updates work?</summary>
+          <p>Lightbox checks for a new version about once a day and offers it in a small window with what's changed; you choose when to install. Every update is signed, and Lightbox refuses any download that doesn't carry the right signature. Lightbox › Check for Updates… checks right away, and Settings can turn automatic checks off.</p>
+        </details>
+        <details>
+          <summary>Can it replace Lightroom?</summary>
+          <p>For many hobbyists, yes: it covers what most people use day to day, with faster, calmer editing. If your work depends on catalogues across many drives, tethered shooting, print layouts or plugins, Lightbox isn't meant for that, and that's by design.</p>
+        </details>
+        <details>
+          <summary>Is it really free? What's the catch?</summary>
+          <p>No catch. No trial, account, watermark or export limit, and no plan to add any. Support is welcome and entirely optional.</p>
+        </details>
+        <details>
+          <summary>What does it collect?</summary>
+          <p>Your photos never leave your Mac. Lightbox sends anonymous counts (that it was opened, and how many photos an export contained) so it's possible to know whether anyone uses it, and you can turn that off in Settings. The <a href="privacy.html">privacy page</a> lists exactly what is sent.</p>
+        </details>
+        <details>
+          <summary>Something went wrong. How do I report it?</summary>
+          <p>In Lightbox, choose Help › Report a Problem…. It opens an email with your Lightbox, macOS and Mac details already filled in; add what happened and, if you can, the steps that lead to it. If Lightbox quit unexpectedly, Help › Show Crash Reports opens the folder with the report worth attaching. <span data-needs="contact">Or write to <a class="addr" href="mailto:karate.seating4j@icloud.com" data-link="contact">karate.seating4j@icloud.com</a>.</span></p>
+        </details>
+        <details>
+          <summary>How do I uninstall it?</summary>
+          <p>Drag Lightbox from Applications to the Trash. To remove everything else, also delete <code>~/Library/Caches/Lightbox</code> (thumbnails and previews) and <code>~/Library/Preferences/app.lightbox.mac.plist</code> (settings). Your edits stay in the hidden <code>.lightbox</code> folders beside your photos until you delete them (press ⇧⌘. in Finder to show hidden folders).</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="download">
+    <div class="wrap reveal">
+      <div class="final-row">
+        <img class="icon" src="assets/icon.png" alt="Lightbox icon">
+        <div>
+          <h2>Download Lightbox</h2>
+          <div class="specs">Version <span data-version>1.0</span> · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
+        </div>
+      </div>
+      <div class="row">
+        <a class="btn touch" href="downloads/Lightbox.zip" download><svg><use href="#i-down"/></svg>Download for Mac</a>
+        <a class="btn quiet touch" href="#" data-link="support" hidden>Support</a>
+      </div>
+      <p class="firstrun">First launch: unzip, move Lightbox to Applications, and open it. macOS asks once before opening apps from outside the App Store: go to System Settings › Privacy &amp; Security and click Open Anyway. (On macOS 13 and 14, right-clicking Lightbox and choosing Open also works.) Updates then arrive inside the app.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Lightbox · free forever</span>
+    <div class="links">
+      <a href="#faq">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="mailto:karate.seating4j@icloud.com" data-link="contact">Contact</a>
+      <a href="#" data-link="support" hidden>Support the project</a>
+    </div>
+  </div>
+</footer>
+
+<script src="photos.js"></script>
+<script src="hero.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
