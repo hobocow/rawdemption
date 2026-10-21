@@ -450,22 +450,38 @@ footer a:hover { color: var(--text); }
 /* ---------- Why: the letter, and what the renewal adds up to ---------- */
 .why-grid { display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr); gap: 56px; align-items: start; margin-top: 18px; }
 @media (max-width: 960px) { .why-grid { grid-template-columns: 1fr; gap: 28px; } }
-.ledger { background: var(--card); border: 1px solid var(--hairline); border-radius: 14px; padding: 22px 22px 16px; }
-.ledger h3 { margin: 0 0 12px; font-size: 15px; font-weight: 600; color: var(--text-2); }
-.ledger ol { list-style: none; margin: 0; padding: 0; }
-.ledger li { position: relative; display: grid; grid-template-columns: 64px 70px 1fr; gap: 10px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--hairline); }
-.ledger li:first-child { border-top: 0; }
-/* A thin bar under each row: how the years pile up. */
-.ledger li::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--brand); border-radius: 2px; opacity: 0.75;
-  transition: width 1.2s var(--ease); }
-.reveal.in .ledger li::after { width: var(--share); }
-.reveal.in .ledger li:nth-child(2)::after { transition-delay: 0.12s; } .reveal.in .ledger li:nth-child(3)::after { transition-delay: 0.24s; }
-.reveal.in .ledger li:nth-child(4)::after { transition-delay: 0.36s; } .reveal.in .ledger li:nth-child(5)::after { transition-delay: 0.48s; }
-.ledger .years { color: var(--text-3); font-size: 13px; }
-.ledger .sum { font-size: 19px; font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
-.ledger .buys { color: var(--text); font-size: 15px; line-height: 1.4; }
-.ledger .fine { margin: 12px 0 0; color: var(--text-3); font-size: 12px; }
-@media (max-width: 480px) { .ledger li { grid-template-columns: 60px 1fr; } .ledger .buys { grid-column: 1 / -1; } }
+/* What the renewal adds up to: one scene per step, the amount counting up. Always a night stage, like the hero. */
+.spend { border-radius: 16px; overflow: hidden; border: 1px solid var(--hairline); background: var(--card); position: sticky; top: 80px; }
+.spend-stage { position: relative; aspect-ratio: 4 / 3; background: #110e1b; color: var(--cream); }
+.spend-stage svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.spend .scene { opacity: 0; transform: scale(0.96); transform-origin: 50% 55%; transition: opacity 0.7s var(--ease), transform 1.2s var(--spring); }
+.spend .scene.on { opacity: 1; transform: none; }
+.spend .twinkle { animation: sp-twinkle 3.2s ease-in-out infinite; }
+.spend .flame { transform-box: fill-box; transform-origin: 50% 100%; animation: sp-flick 0.9s ease-in-out infinite; }
+.spend .flame.f2 { animation-duration: 0.7s; animation-delay: 0.2s; }
+.spend .tentlight { animation: sp-twinkle 2.6s ease-in-out infinite; }
+.spend .flight { stroke-dashoffset: 400; }
+.spend .scene.on .flight { animation: sp-fly 2.2s var(--ease) forwards; }
+@keyframes sp-twinkle { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+@keyframes sp-flick { 0%, 100% { transform: scale(1, 1); } 40% { transform: scale(0.94, 1.1) skewX(3deg); } 70% { transform: scale(1.04, 0.95); } }
+@keyframes sp-fly { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+.spend-tag { position: absolute; left: 18px; top: 14px; display: flex; flex-direction: column; text-shadow: 0 1px 12px rgba(9, 8, 15, 0.6); }
+.spend-sum { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.spend-years { font-size: 13px; opacity: 0.78; }
+.spend-what { position: absolute; left: 18px; right: 18px; bottom: 14px; font-size: 15px; font-weight: 550; text-shadow: 0 1px 12px rgba(9, 8, 15, 0.7);
+  transition: opacity 0.3s var(--ease), transform 0.5s var(--spring); }
+.spend-what.swap { opacity: 0; transform: translateY(6px); transition-duration: 0s; }
+.spend-steps { position: relative; display: flex; justify-content: space-between; padding: 14px 14px 12px; }
+.spend-line { position: absolute; left: 34px; right: 34px; top: 20px; height: 2px; background: var(--hairline-strong); border-radius: 2px; }
+.spend-fill { height: 100%; width: 0; background: var(--brand); border-radius: 2px; transition: width 0.7s var(--ease); }
+.spend-steps button { position: relative; padding: 16px 4px 0; font-size: 12px; color: var(--text-3); min-width: 40px; }
+.spend-steps button::before { content: ""; position: absolute; left: 50%; top: 1px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%;
+  background: var(--card); border: 2px solid var(--hairline-strong); transition: background-color 0.3s, border-color 0.3s, transform 0.4s var(--spring); }
+.spend-steps button.past::before { background: var(--brand); border-color: var(--brand); }
+.spend-steps button.on { color: var(--text); font-weight: 600; }
+.spend-steps button.on::before { background: var(--brand); border-color: var(--brand); transform: scale(1.3); }
+.spend-steps button:hover { color: var(--text); }
+@media (max-width: 960px) { .spend { position: static; max-width: 560px; } }
 
 /* ---------- Beta ---------- */
 /* Out of the flow (absolute, at its natural place after the name), so the name stays centred. */

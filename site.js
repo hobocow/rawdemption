@@ -897,7 +897,45 @@
     });
   }
 
+  // ---------- Why: what the renewal adds up to, a scene per step ----------
+  function buildSpend() {
+    const root = $("#spend");
+    if (!root) return;
+    const STEPS = [[1, 150, "a night under the stars"], [2, 300, "a fast 50mm prime, and a polariser"], [3, 450, "a Sigma 56mm f/1.4 portrait lens"],
+      [5, 750, "a new camera, like a Canon EOS R50"], [10, 1500, "a week abroad with your camera"]];
+    const scenes = $$(".scene", root), sum = $(".spend-sum", root), years = $(".spend-years", root), what = $(".spend-what", root);
+    const steps = $$(".spend-steps button", root), fill = $(".spend-fill", root);
+    let shown = 0, value = STEPS[0][1], frame = 0;
+    const dollars = (v) => "$" + Math.round(v).toLocaleString("en-US");
+    const show = (i) => {
+      shown = i;
+      const [y, to, label] = STEPS[i];
+      scenes.forEach((s, k) => s.classList.toggle("on", k === i));
+      steps.forEach((b, k) => { b.classList.toggle("on", k === i); b.classList.toggle("past", k < i); });
+      fill.style.width = (i / (STEPS.length - 1)) * 100 + "%";
+      years.textContent = `${y} year${y > 1 ? "s" : ""} of Lightroom`;
+      if (what.textContent !== label) { what.classList.add("swap"); what.textContent = label; void what.offsetWidth; what.classList.remove("swap"); }
+      cancelAnimationFrame(frame);
+      const from = value, t0 = performance.now(), ms = reduce ? 0 : 700;
+      const tick = (t) => {
+        const k = ms ? clamp((t - t0) / ms, 0, 1) : 1;
+        value = from + (to - from) * (1 - Math.pow(1 - k, 3));
+        sum.textContent = dollars(value);
+        if (k < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    };
+    show(0);
+    // Steps through on its own while visible; a click picks a step and carries on from there.
+    const runner = whileVisible(root, async (ctl) => {
+      if (reduce) return;
+      for (;;) { await ctl.wait(3600); show((shown + 1) % STEPS.length); }
+    }, 0.3);
+    steps.forEach((b, k) => b.addEventListener("click", () => { show(k); runner.restart(); }));
+  }
+
   buildFilm();
   buildFeel();
   buildTiles();
+  buildSpend();
 })();
