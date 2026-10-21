@@ -20,7 +20,7 @@
     // Appearance before first paint: saved choice, else the system's.
     try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=05eef1d0">
+  <link rel="stylesheet" href="styles.css?v=9077c840">
 </head>
 <body>
 
@@ -82,7 +82,7 @@
     <h1>RAWdemption<span class="beta">Beta</span></h1>
     <p class="lede">Intuitive RAW editor for macOS. Free forever.</p>
     <p class="motto">A hobby shouldn't come with a monthly rent.</p>
-    <a class="btn touch" href="downloads/RAWdemption.zip" download><svg><use href="#i-down"/></svg>Install for Mac</a>
+    <a class="btn touch" href="#download"><svg><use href="#i-down"/></svg>Install for Mac</a>
     <div class="meta">Public beta · Apple silicon · macOS 13 or later</div>
   </div>
 </header>
@@ -267,8 +267,8 @@
           <p>Macs with Apple silicon (M1 or later) on macOS 13 Ventura or later. 16 GB of memory is recommended for smooth editing of 24-megapixel RAW files; Intel Macs aren't supported.</p>
         </details>
         <details>
-          <summary>Why does macOS ask before the first launch?</summary>
-          <p>RAWdemption isn't sold through the App Store, and notarising it with Apple requires a paid membership, so macOS asks you to confirm it once. Move RAWdemption to your Applications folder and open it, then go to System Settings › Privacy &amp; Security and click Open Anyway. On macOS 13 and 14, right-clicking RAWdemption and choosing Open also works. After that it opens like any other app, and updates install without asking again. (Keep it in Applications: macOS doesn't let apps update themselves while they run from Downloads.)</p>
+          <summary>Why install with a Terminal command?</summary>
+          <p>RAWdemption isn't sold through the App Store and isn't notarised by Apple yet, which takes a paid developer membership. Without it, macOS calls the app “damaged” when a browser downloads it, and offers no way to open it. Nothing is wrong with the file: the one-line command downloads it the way Terminal does, so it arrives without that label, checks that it's intact and really RAWdemption, puts it in Applications and opens it. Updates then install from inside the app, signed, with nothing more to do.</p>
         </details>
         <details>
           <summary>Can it replace Lightroom?</summary>
@@ -283,16 +283,21 @@
       <div class="final-row">
         <img class="icon" src="assets/icon.png" alt="RAWdemption icon">
         <div>
-          <h2>Download RAWdemption</h2>
+          <h2>Install RAWdemption</h2>
           <div class="specs">Version <span data-version>0.9.0</span> beta · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
         </div>
       </div>
-      <div class="row">
-        <a class="btn touch" href="downloads/RAWdemption.zip" download><svg><use href="#i-down"/></svg>Install for Mac</a>
-        <a class="btn quiet touch" href="#" data-link="support" hidden>Support</a>
-      </div>
+      <ol class="install">
+        <li>Open <b>Terminal</b> (Applications › Utilities, or press ⌘ Space and type Terminal).</li>
+        <li>Paste this line and press Return:
+          <div class="cmd"><code id="install-cmd">curl -fsSL https://hobocow.github.io/rawdemption/install.sh | bash</code><button type="button" class="copy touch" data-copy="#install-cmd">Copy</button></div>
+        </li>
+        <li>RAWdemption downloads, moves itself to Applications and opens. That's it: from then on, updates arrive inside the app.</li>
+      </ol>
+      <p class="why-cmd">Why a command? RAWdemption isn't notarised by Apple yet (that takes a paid developer membership), and macOS labels such apps “damaged” when a browser downloads them. They aren't; the command simply installs without that label.
+        Prefer the zip? <a href="downloads/RAWdemption.zip" download>Download it</a>, move RAWdemption to Applications, then run <code>xattr -dr com.apple.quarantine /Applications/RAWdemption.app</code> once in Terminal.</p>
+      <div class="row" data-needs="support" hidden><a class="btn quiet touch" href="#" data-link="support" hidden>Support</a></div>
       <p class="beta-note">RAWdemption is in public beta: ready for real photos, still finding its feet. If something looks off, Help › Report a Problem sends a note with the details filled in, and fixes arrive as updates the next time you open it.</p>
-      <p class="firstrun">First launch: unzip, move RAWdemption to Applications, and open it. macOS asks once before opening apps from outside the App Store: go to System Settings › Privacy &amp; Security and click Open Anyway. (On macOS 13 and 14, right-clicking RAWdemption and choosing Open also works.) Updates then arrive inside the app.</p>
     </div>
   </section>
 </main>
@@ -311,6 +316,6 @@
 
 <script src="photos.js?v=cdf224a2"></script>
 <script src="hero.js?v=066ba3b1"></script>
-<script src="site.js?v=9cd5636d"></script>
+<script src="site.js?v=be4907d7"></script>
 </body>
 </html>

@@ -938,4 +938,13 @@
   buildFeel();
   buildTiles();
   buildSpend();
+
+  // ---------- Install: copy the command ----------
+  $$("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+    const code = $(b.dataset.copy);
+    try { await navigator.clipboard.writeText(code.textContent.trim()); }
+    catch (e) { const r = document.createRange(); r.selectNodeContents(code); getSelection().removeAllRanges(); getSelection().addRange(r); document.execCommand("copy"); }
+    b.textContent = "Copied"; b.classList.add("done-copy");
+    setTimeout(() => { b.textContent = "Copy"; b.classList.remove("done-copy"); }, 1600);
+  }));
 })();
