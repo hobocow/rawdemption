@@ -940,6 +940,8 @@
     if (!film) return;
     const cam = el("div", "cam"); film.appendChild(cam);
     const fit = () => { cam.style.transform = `scale(${film.clientWidth / 1200})`; };
+    // A tall stage, so the finished page fits in one frame.
+    const STAGE_H = 1350;
     new ResizeObserver(fit).observe(film); fit();
     const svg = (d, fill) => `<svg viewBox="0 0 24 24"><path d="${d}" fill="${fill ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     const G = {
@@ -956,7 +958,7 @@
       <div class="pf-scroll">
         <div class="pf-head"><div class="pf-avatar">${G.sunset}</div>
           <div><div class="pf-greet"></div><div class="pf-date"></div></div>
-          <div class="pf-support"><span class="tip">♥ Support the project</span></div></div>
+          </div>
         <div class="pf-tabs"><i></i>${["Today", "This week", "Last week", "This month", "This year", "All time"].map((t) => `<b>${t}</b>`).join("")}</div>
         <div class="pf-sum"></div>
         <div class="pf-tiles">
@@ -1069,7 +1071,7 @@
     };
     // The camera: the page moves and scales inside the window to frame one thing at a time.
     // Positions are the page's own (offsets ignore transforms), so framing never drifts.
-    const VIEW_W = 1200, VIEW_H = 710;
+    const VIEW_W = 1200, VIEW_H = STAGE_H - 40;
     const at = (node) => { let x = 0, y = 0; for (let n = node; n && n !== scroll; n = n.offsetParent) { x += n.offsetLeft; y += n.offsetTop; } return { x, y, w: node.offsetWidth, h: node.offsetHeight }; };
     const frame = (node, { pad = 26, max = 2.4, ms = 750 } = {}) => {
       const r = at(node);
@@ -1080,7 +1082,18 @@
       scroll.style.transition = `transform ${reduce ? 0 : ms}ms cubic-bezier(0.65, 0, 0.35, 1)`;
       scroll.style.transform = `translate(${tx}px, ${ty}px) scale(${k})`;
     };
-    const wide = (ms = 900) => { scroll.style.transition = `transform ${reduce ? 0 : ms}ms cubic-bezier(0.65, 0, 0.35, 1)`; scroll.style.transform = "translate(0, 0) scale(1)"; };
+    // The whole page, scaled to fit and centred: the last frame shows every section.
+    const wide = (ms = 900) => {
+      const k = Math.min(1, VIEW_W / scroll.offsetWidth, VIEW_H / scroll.offsetHeight);
+      const tx = (VIEW_W - scroll.offsetWidth * k) / 2, ty = (VIEW_H - scroll.offsetHeight * k) / 2;
+      scroll.style.transition = `transform ${reduce ? 0 : ms}ms cubic-bezier(0.65, 0, 0.35, 1)`;
+      scroll.style.transform = `translate(${tx}px, ${ty}px) scale(${k})`;
+    };
+    // A race through the year: rankings by month, places swapping, then the year's order settles.
+    const race = async (ctl, box, months, final) => {
+      for (const standings of months) { rank(box, standings); await ctl.wait(650); }
+      rank(box, final);
+    };
     scroll.style.transformOrigin = "0 0";
     const q = (sel) => $(sel, win);
     const tiles = $$(".pf-tile", win), panels = $$(".pf-panel", win);
@@ -1102,8 +1115,22 @@
 
     // One take, played once: the year so far. Then the page stays, finished, as the app shows it.
     const ch = CH[2];
-    const early = { cams: [["RICOH GR III", 140], ["Sony ZV-E10", 118], ["iPhone 15 Pro", 30]],
-                    lenses: [["GR Lens 18.3mm F2.8", 140], ["Sigma 30mm F1.4 DC DN", 96], ["E PZ 16-50mm", 22], ["iPhone 15 Pro", 30]] };
+    const months = {
+      cams: [
+        [["RICOH GR III", 40], ["iPhone 15 Pro", 14], ["Sony ZV-E10", 12]],
+        [["Sony ZV-E10", 130], ["RICOH GR III", 118], ["iPhone 15 Pro", 30]],
+        [["RICOH GR III", 262], ["Sony ZV-E10", 240], ["iPhone 15 Pro", 45]],
+        [["Sony ZV-E10", 410], ["RICOH GR III", 380], ["iPhone 15 Pro", 62]],
+        [["RICOH GR III", 505], ["Sony ZV-E10", 492], ["iPhone 15 Pro", 80]],
+      ],
+      lenses: [
+        [["GR Lens 18.3mm F2.8", 40], ["iPhone 15 Pro", 14], ["E PZ 16-50mm", 8], ["Sigma 30mm F1.4 DC DN", 4]],
+        [["GR Lens 18.3mm F2.8", 118], ["Sigma 30mm F1.4 DC DN", 96], ["E PZ 16-50mm", 34], ["iPhone 15 Pro", 30]],
+        [["Sigma 30mm F1.4 DC DN", 230], ["GR Lens 18.3mm F2.8", 262], ["E PZ 16-50mm", 70], ["iPhone 15 Pro", 45]].sort((a, b) => b[1] - a[1]),
+        [["Sigma 30mm F1.4 DC DN", 330], ["GR Lens 18.3mm F2.8", 380], ["E PZ 16-50mm", 140], ["iPhone 15 Pro", 62]].sort((a, b) => b[1] - a[1]),
+        [["E PZ 16-50mm", 190], ["Sigma 30mm F1.4 DC DN", 395], ["GR Lens 18.3mm F2.8", 505], ["iPhone 15 Pro", 80]].sort((a, b) => b[1] - a[1]),
+      ],
+    };
     let played = false;
     whileVisible(film, async (ctl) => {
       if (played) return;
@@ -1134,15 +1161,15 @@
       // The race: spring's leader is overtaken by the year's.
       say("Your cameras and lenses, and the lead changing hands.");
       frame(panels[0], { max: 1.9, ms: 650 });
-      rank($('[data-r="cams"]', win), early.cams);
-      await ctl.wait(900);
-      rank($('[data-r="cams"]', win), ch.cams); insight("cam", ch.camLine);
-      await ctl.wait(1300);
+      await ctl.wait(300);
+      await race(ctl, $('[data-r="cams"]', win), months.cams, ch.cams);
+      insight("cam", ch.camLine);
+      await ctl.wait(1500);
       frame(panels[1], { max: 1.9, ms: 600 });
-      rank($('[data-r="lenses"]', win), early.lenses);
-      await ctl.wait(800);
-      rank($('[data-r="lenses"]', win), ch.lenses); insight("lens", ch.lensLine);
-      await ctl.wait(1200);
+      await ctl.wait(300);
+      await race(ctl, $('[data-r="lenses"]', win), months.lenses, ch.lenses);
+      insight("lens", ch.lensLine);
+      await ctl.wait(1500);
       // What you see, and how you expose it.
       say("Your style, read from the settings you choose.");
       frame(panels[2], { max: 1.9, ms: 650 });
@@ -1150,13 +1177,13 @@
       $$(".pf-bands i", win).forEach((b, i) => { b.style.height = `${Math.max(3, (ch.bands[i] / bmax) * 70)}px`; b.classList.toggle("top", i === btop); });
       $(".pf-fav", win).innerHTML = `${ch.fav}<small>your favourite focal length</small>`;
       insight("focal", ch.focalLine);
-      await ctl.wait(1300);
+      await ctl.wait(2600);
       frame(panels[3], { max: 1.9, ms: 600 });
       insight("sig", ch.sigLine);
       ["f", "t", "iso"].forEach((k, i) => { $(`[data-s="${k}"]`, win).textContent = ch.set[i]; });
-      await ctl.wait(400);
-      for (const t of ch.tags) { $(".pf-tags", win).appendChild(el("span", "", t)); await ctl.wait(190); }
-      await ctl.wait(800);
+      await ctl.wait(1200);
+      for (const t of ch.tags) { $(".pf-tags", win).appendChild(el("span", "", t)); await ctl.wait(380); }
+      await ctl.wait(1800);
       // The light you chase.
       say("The light you chase, hour by hour.");
       frame(panels[4], { max: 1.6, ms: 700 });
@@ -1166,10 +1193,10 @@
         b.style.height = `${Math.max(2, (ch.hours[h] / hmax) * 68)}px`;
         b.style.background = ch.hours[h] === hmax ? "var(--brand)" : h >= 5 && h < 9 ? "#f2b65a" : h >= 17 && h < 21 ? "#e8834d" : h >= 9 && h < 17 ? "var(--w-text-3)" : "#6a70c0";
       });
-      await ctl.wait(1600);
+      await ctl.wait(2400);
       frame(panels[5], { max: 1.8, ms: 650 });
       ["streak", "big", "since"].forEach((k, i) => { $(`[data-m="${k}"]`, win).textContent = ch.miles[i]; });
-      await ctl.wait(1400);
+      await ctl.wait(2200);
       // The whole page, finished: it stays like this.
       say("All of it from your own photos, on your Mac.");
       wide(1100);
