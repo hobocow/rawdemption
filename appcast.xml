@@ -7,6 +7,15 @@
     <description>Updates to RAWdemption, the RAW editor for macOS.</description>
     <language>en</language>
     <item>
+      <title>RAWdemption 0.9.17</title>
+      <pubDate>Thu, 22 Oct 2026 19:27:54 GMT</pubDate>
+      <sparkle:version>21</sparkle:version>
+      <sparkle:shortVersionString>0.9.17</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Saving an edit now updates its thumbnail without rendering the photo again.</li><li>Tone sliders no longer trigger a second refinement pass when the image is already sharp.</li><li>Opening a photo is quicker: controls are prepared when you reach for them instead of in advance.</li></ul>]]></description>
+      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.17.zip" length="2601558" type="application/octet-stream" sparkle:edSignature="ahJdrx3GFT5d4ccMfcwlF/QANaa2gHGquSndYbeffmrcGtZ7B47yvp4v9jDc2fru+nOP4V43dfF3L8HPWY1QCg=="/>
+    </item>
+    <item>
       <title>RAWdemption 0.9.16</title>
       <pubDate>Thu, 22 Oct 2026 18:33:12 GMT</pubDate>
       <sparkle:version>20</sparkle:version>
@@ -86,15 +95,6 @@
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<ul><li>Your profile: click your icon at the bottom of the sidebar to see what you&#x27;ve shot, edited and exported, your favourite camera, lens and focal length, and when you like to shoot.</li><li>RAWdemption now greets you for the time of day.</li><li>The sidebar button is gone from the editor, and folders look like folders.</li></ul>]]></description>
       <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.8.zip" length="2542828" type="application/octet-stream" sparkle:edSignature="1Sn2v5p94nCK0XL6VcjEnxDiXbfVYbI8UoOe1HA5ie0nxjBqkV73bU4BydB/h8/dXYUdJP7TBqY3Yp0THXzfBw=="/>
-    </item>
-    <item>
-      <title>RAWdemption 0.9.7</title>
-      <pubDate>Wed, 21 Oct 2026 22:10:04 GMT</pubDate>
-      <sparkle:version>11</sparkle:version>
-      <sparkle:shortVersionString>0.9.7</sparkle:shortVersionString>
-      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<ul><li>A friendly welcome: tell RAWdemption your name and pick an icon, and it greets you when you come back.</li><li>The sidebar button in the editor no longer flickers a dark outline.</li></ul>]]></description>
-      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.7.zip" length="2457682" type="application/octet-stream" sparkle:edSignature="0Rvarqpf1APKIoykaYa7RYC6USyDH1fQuWE3Vj1LgXOFjjaBsjhtcNAIEkn9Kd9Sdvv3WK8oMjrwhjvcEHkiAg=="/>
     </item>
   </channel>
 </rss>
