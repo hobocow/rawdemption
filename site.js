@@ -1210,6 +1210,16 @@
   buildSpend();
   buildYou();
 
+  // ---------- Install: one way shown at a time ----------
+  const ways = $$(".ways [role=tab]");
+  ways.forEach((tab) => tab.addEventListener("click", () => {
+    ways.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      $("#" + t.getAttribute("aria-controls")).hidden = !on;
+    });
+  }));
+
   // ---------- Install: copy the command ----------
   $$("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
     const code = $(b.dataset.copy);
