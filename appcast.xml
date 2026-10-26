@@ -7,6 +7,15 @@
     <description>Updates to RAWdemption, the RAW editor for macOS.</description>
     <language>en</language>
     <item>
+      <title>RAWdemption 0.9.19</title>
+      <pubDate>Mon, 26 Oct 2026 13:57:45 GMT</pubDate>
+      <sparkle:version>23</sparkle:version>
+      <sparkle:shortVersionString>0.9.19</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Clicking a photo now zooms to 125%.</li><li>Clearer wording on the profile page about what supporting on Patreon adds.</li></ul>]]></description>
+      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.19.zip" length="2611036" type="application/octet-stream" sparkle:edSignature="nDo6Ipe+jlnog/gU91d9tGAEzStpSc8coIc4JGrzXcFjEFUocvHISDSY646Rt9ybyVE2PhFTsIRVVw8VivN3Bg=="/>
+    </item>
+    <item>
       <title>RAWdemption 0.9.18</title>
       <pubDate>Mon, 26 Oct 2026 12:54:25 GMT</pubDate>
       <sparkle:version>22</sparkle:version>
@@ -86,15 +95,6 @@
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<ul><li>Your profile&#x27;s detailed side (cameras, lenses, focal lengths, style and more) is now a thank-you for supporters on Patreon. Everyone keeps the main figures, and editing stays free and unlimited.</li><li>A smoother icon picker.</li></ul>]]></description>
       <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.10.zip" length="2572277" type="application/octet-stream" sparkle:edSignature="0gGlCJpQ3c/xkrxU2zV072eMPV9rimehNaDYuyY++HSjOF2oWt1tdovm0yqCfVjCcR1khnp90qpQcI4F4zq4BA=="/>
-    </item>
-    <item>
-      <title>RAWdemption 0.9.9</title>
-      <pubDate>Wed, 21 Oct 2026 23:05:58 GMT</pubDate>
-      <sparkle:version>13</sparkle:version>
-      <sparkle:shortVersionString>0.9.9</sparkle:shortVersionString>
-      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<ul><li>Choose from dozens of photography icons for your profile.</li><li>Your profile reads your style in more ways, and tells you why when you hover over a style word.</li><li>More greetings, and a larger profile page.</li></ul>]]></description>
-      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.9.zip" length="2568322" type="application/octet-stream" sparkle:edSignature="1/yiwBcv3+zRiIe79yYhZU7YJJ4KLihh4IhxkKvXCgJQfRUu+0ApiRBdxOYcaQwCIcSG2yUr2x3yji/zuewvCw=="/>
     </item>
   </channel>
 </rss>
