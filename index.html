@@ -20,7 +20,7 @@
     // Appearance before first paint: saved choice, else the system's.
     try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=a487a053">
+  <link rel="stylesheet" href="styles.css?v=c53d7aa5">
 </head>
 <body>
 
@@ -77,23 +77,26 @@
   </div>
 </nav>
 
-<!-- Where you are on the page; shown beside the content on wide windows -->
+<!-- Where you are on the page: a ring that turns with the page, beside the content on wide windows -->
 <nav class="rail" id="rail" aria-label="Sections">
-  <a href="#why"><span>Why it exists</span></a>
-  <a href="#how"><span>How it works</span></a>
-  <a href="#feel"><span>Details</span></a>
-  <a href="#you"><span>Your profile</span></a>
-  <a href="#features"><span>Features</span></a>
-  <a href="#future"><span>What's next</span></a>
-  <a href="#faq"><span>Questions</span></a>
-  <a href="#download"><span>Install</span></a>
+  <div class="ring" aria-hidden="true"></div>
+  <div class="dial">
+    <a href="#why">Why it exists</a>
+    <a href="#how">How it works</a>
+    <a href="#feel">Details</a>
+    <a href="#you">Your profile</a>
+    <a href="#features">Features</a>
+    <a href="#future">What's next</a>
+    <a href="#faq">Questions</a>
+    <a href="#download">Install</a>
+  </div>
 </nav>
 
 <header class="hero" id="top">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-copy">
     <h1>RAWdemption<span class="beta">Beta</span></h1>
-    <p class="lede">A RAW editor for macOS. Free, and it stays that way.<br><span class="by">Made by a photographer.</span></p>
+    <p class="lede">A RAW editor for macOS. Free, for good.<br><span class="by">Made by a photographer, for the long run.</span></p>
     <p class="motto">A hobby shouldn't come with a monthly rent.</p>
     <a class="btn touch" href="#download"><svg><use href="#i-down"/></svg>Install for Mac</a>
     <div class="meta">Public beta · Only <span data-app-size>6.8 MB</span> · Apple silicon · macOS 13 or later</div>
@@ -106,11 +109,11 @@
       <h2>Why RAWdemption exists</h2>
       <div class="why-grid">
       <div class="letter">
-        <p>RAWdemption began when I stopped renewing Lightroom. What I needed was simple: go through my photos, keep the good ones, adjust them, export.</p>
-        <p>The free editors I tried were capable, but none of them suited the way I work. So I built one. It is the editor I use for my own photography.</p>
-        <p>I've made it available to anyone who works the same way. Photos stay in their folders, edits are saved beside them, and editing and exporting cost nothing.</p>
+        <p>RAWdemption started when I stopped paying for Lightroom. What I needed was simple: go through my photos, keep the good ones, adjust them, export.</p>
+        <p>The free editors I tried were capable, but none of them suited the way I work. So I built one, and it's the editor I use for my own photography.</p>
+        <p>It's free, and not as a trial or an introductory offer. The plan is for RAWdemption to stay free for good and to keep getting better for years, not months. Your photos stay in their folders, and your edits sit beside them.</p>
         <p class="free"><svg aria-hidden="true"><use href="#i-check"/></svg>Free forever, for anyone.</p>
-        <p class="soft" data-needs="patreon">RAWdemption is made by one person. If it earns its place on your Mac, you can support it on Patreon.</p>
+        <p class="soft" data-needs="patreon">It's made by one person. If it earns its place on your Mac, Patreon is how you can help keep it going.</p>
         <div class="row" data-needs="patreon"><a class="btn quiet touch" href="https://www.patreon.com/rawdemption" data-link="patreon"><svg><use href="#i-heart-fill"/></svg>Support on Patreon</a></div>
       </div>
       <aside class="spend" id="spend" aria-label="What a Lightroom plan adds up to, year by year">
@@ -276,14 +279,14 @@
   <section class="section" id="future">
     <div class="wrap reveal">
       <h2>Where it's going</h2>
-      <p class="sub">RAWdemption is a living project. I work on it every day, and each release leaves it better than the last.</p>
+      <p class="sub">This isn't a weekend project. I'm building RAWdemption for the long run and work on it as often as I can. Each release leaves it a little better than the last.</p>
       <div class="road">
         <article><h3>Steady updates</h3><p>Fixes and improvements arrive inside the app, signed and checked before they install. Reported problems come first.</p></article>
         <article><h3>Faster, lighter</h3><p>Speed and memory use are worked on continuously, so editing stays smooth on every Apple silicon Mac, not only the newest.</p></article>
         <article><h3>New tools, chosen with care</h3><p>A tool is added when it makes editing better, not busier. The aim is a complete editor that stays calm to use.</p></article>
         <article class="voice"><h3><svg aria-hidden="true"><use href="#i-heart-fill"/></svg>Shaped by its photographers</h3><p>Supporters on Patreon can request features. Each request is weighed against one question: would it make RAWdemption better for everyone? When it would, and the app's foundations allow it, it goes on the list.</p></article>
         <article><h3>Beyond the Mac</h3><p>Photographers on Windows ask about it. Once the Mac version is mature, a Windows version is something I'd like to explore. No dates yet.</p></article>
-        <article><h3>Free stays free</h3><p>Whatever is added, editing and exporting remain free and unlimited, for everyone, wherever they are.</p></article>
+        <article><h3>Free stays free</h3><p>No subscription later, no paid version, no ads. Nothing that's free today will ever be put behind a payment.</p></article>
       </div>
       <div class="releases" id="releases" hidden>
         <h3>Recent releases</h3>
@@ -298,6 +301,10 @@
     <div class="wrap reveal">
       <h2>Questions</h2>
       <div class="faq">
+        <details>
+          <summary>Will it stay free?</summary>
+          <p>Yes. Editing and exporting are free and always will be: no limits, no subscription, no ads, and nothing that's free today will be put behind a payment later. Patreon is optional. It lets me spend more time on RAWdemption, and as a thank-you, supporters get their full profile and can request features.</p>
+        </details>
         <details>
           <summary>Which cameras does it open?</summary>
           <p>RAWdemption develops RAW files with the RAW engine built into macOS, so it opens what Apple Photos opens: most cameras from Canon, Fujifilm, Leica, Nikon, Olympus/OM System, Panasonic, Pentax/Ricoh, Sony and more, plus DNG. Apple publishes the full list on its support site (“Digital camera RAW formats supported by macOS”), and new cameras arrive with macOS updates. JPEG, HEIC, PNG and TIFF open too.</p>
@@ -332,7 +339,7 @@
         <img class="icon" src="assets/icon.png" alt="RAWdemption icon">
         <div>
           <h2>Install RAWdemption</h2>
-          <div class="specs">Version <span data-version>0.9.21</span> beta · <span data-download-size>2.7 MB</span> download, <span data-app-size>6.8 MB</span> installed · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
+          <div class="specs">Version <span data-version>0.9.22</span> beta · <span data-download-size>2.7 MB</span> download, <span data-app-size>6.8 MB</span> installed · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
         </div>
       </div>
       <div class="ways" role="tablist" aria-label="Ways to install">
@@ -351,7 +358,7 @@
             <div class="cmd"><code id="xattr-cmd">xattr -dr com.apple.quarantine /Applications/RAWdemption.app</code><button type="button" class="copy touch" data-copy="#xattr-cmd">Copy</button></div>
           </li>
         </ol>
-        <p class="way-note">SHA-256 of the zip: <code class="sha" data-sha256>c24d747ff015cd88e9fce06718c257bf640b6bdddc9e0bea956733560f55e0b6</code></p>
+        <p class="way-note">SHA-256 of the zip: <code class="sha" data-sha256>8405d8216161c8b127fbd28e5d9cade5e340cdbf1b19c5d136138e08c62afe4f</code></p>
       </div>
       <div class="install-why">
         <p><b>Why not a plain download button?</b> I make RAWdemption on my own and give it away. macOS only opens a browser-downloaded app straight away if Apple has notarised it, which needs a paid yearly developer membership, so for now it blocks RAWdemption and calls it “damaged”. Nothing is wrong with the file.</p>
@@ -377,6 +384,6 @@
 
 <script src="photos.js?v=cdf224a2"></script>
 <script src="hero.js?v=066ba3b1"></script>
-<script src="site.js?v=b2643ea0"></script>
+<script src="site.js?v=8b898566"></script>
 </body>
 </html>

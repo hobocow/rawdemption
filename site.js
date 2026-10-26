@@ -30,23 +30,59 @@
   const revealer = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); revealer.unobserve(e.target); } }), { threshold: 0.1 });
   $$(".reveal").forEach((n) => revealer.observe(n));
 
-  // ---------- Where you are: the side index and the nav follow the section in view ----------
-  const rail = $("#rail");
-  const marked = $$("#rail a, .nav-links a[href^='#']");
-  const sections = [...new Set(marked.map((a) => a.getAttribute("href")))].map((h) => $(h)).filter(Boolean);
-  const markCurrent = () => {
-    rail.classList.toggle("show", scrollY > heroEl.offsetHeight * 0.6);
-    // The last section whose top has passed a third of the window.
-    let current = null;
-    for (const sec of sections) if (sec.getBoundingClientRect().top < innerHeight / 3) current = sec;
-    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) current = sections[sections.length - 1];
-    const id = current ? "#" + current.id : "";
-    marked.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === id));
+  // ---------- Where you are: the ring turns with the page; the nav marks the section in view ----------
+  // The page position becomes a fractional section index (2.5 = halfway from the third section to the
+  // fourth). The ring follows it at a limited speed, so a sudden scroll, a click in the nav or the End key
+  // still reads as a turn through the sections in between, and comes to rest softly.
+  const rail = $("#rail"), ring = $("#rail .ring"), dialLinks = $$("#rail .dial a");
+  const navLinks = $$(".nav-links a[href^='#']");
+  const chapters = dialLinks.map((a) => $(a.getAttribute("href")));
+  const still = matchMedia("(prefers-reduced-motion: reduce)");
+  let shown = 0, target = 0, last = 0, turning = false;
+  const pagePosition = () => {
+    const line = innerHeight / 3, tops = chapters.map((c) => c.getBoundingClientRect().top);
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) return chapters.length - 1;
+    if (line < tops[0]) return Math.max(-1, (line - tops[0]) / innerHeight);
+    for (let i = 0; i < tops.length; i++) {
+      const next = i + 1 < tops.length ? tops[i + 1] : tops[i] + chapters[i].offsetHeight;
+      if (line < next) return i + Math.min(1, (line - tops[i]) / Math.max(1, next - tops[i])) - 0.5;
+    }
+    return chapters.length - 1;
   };
-  let markQueued = false;
-  addEventListener("scroll", () => { if (!markQueued) { markQueued = true; requestAnimationFrame(() => { markQueued = false; markCurrent(); }); } }, { passive: true });
-  addEventListener("resize", markCurrent);
-  markCurrent();
+  const drawRing = () => {
+    const current = Math.round(shown);
+    dialLinks.forEach((a, i) => {
+      const d = i - shown, angle = d * 0.46;  // ~26° of ring between sections
+      const fade = Math.max(0, 1 - Math.abs(d) * 0.62);
+      a.style.transform = Math.abs(angle) < 1.5 ? `translateY(${(70 * Math.sin(angle)).toFixed(2)}px) scaleY(${Math.cos(angle).toFixed(3)})` : "translateY(0) scaleY(0)";
+      a.style.opacity = fade.toFixed(3);
+      a.style.pointerEvents = fade > 0.25 ? "auto" : "none";
+      a.classList.toggle("on", i === current);
+    });
+    ring.style.backgroundPosition = `0 ${(-shown * 21).toFixed(2)}px`;
+  };
+  const turn = (t) => {
+    const dt = Math.min(0.05, Math.max(0.001, (t - last) / 1000)); last = t;
+    const gap = target - shown;
+    // Eased approach, at most 9 sections a second.
+    const step = Math.sign(gap) * Math.min(Math.abs(gap) * (1 - Math.exp(-dt / 0.12)), 9 * dt);
+    shown = Math.abs(gap) < 0.002 ? target : shown + step;
+    drawRing();
+    turning = shown !== target;
+    if (turning) requestAnimationFrame(turn);
+  };
+  const follow = () => {
+    target = Math.max(0, Math.min(chapters.length - 1, pagePosition()));
+    rail.classList.toggle("show", scrollY > heroEl.offsetHeight * 0.6);
+    const id = pagePosition() > -0.5 ? "#" + chapters[Math.round(target)].id : "";
+    navLinks.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === id));
+    if (still.matches) { shown = target; drawRing(); return; }
+    if (!turning) { turning = true; last = performance.now(); requestAnimationFrame(turn); }
+  };
+  addEventListener("scroll", follow, { passive: true });
+  addEventListener("resize", follow);
+  shown = target = Math.max(0, Math.min(chapters.length - 1, pagePosition()));
+  drawRing(); follow();
 
   // ---------- What's next: the latest releases, from the app's own update feed ----------
   fetch("appcast.xml", { cache: "no-cache" }).then((r) => r.ok ? r.text() : Promise.reject()).then((xml) => {

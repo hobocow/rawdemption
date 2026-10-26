@@ -600,17 +600,21 @@ footer a:hover { color: var(--text); }
 
 /* ---------- Where you are: the nav and the side index mark the section in view ---------- */
 .nav-links a.on { opacity: 1; }
-/* Just beside the content column (1100 px wide), labels to its right, so it reads with the page */
-.rail { position: fixed; left: calc(50% + 574px); top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 2px;
+/* Beside the content column (1100 px wide): a knurled ring like a lens's aperture ring, turning with the
+   page. The current section sits at the orange index; the ones either side fade round the curve. */
+.rail { position: fixed; left: calc(50% + 574px); top: 50%; width: 160px; height: 200px; margin-top: -100px; z-index: 40;
   opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease); }
 .rail.show { opacity: 1; pointer-events: auto; }
-.rail a { display: flex; align-items: center; gap: 10px; height: 26px; color: var(--text-3); font-size: 12.5px; }
-.rail a::before { content: ""; flex: none; width: 14px; height: 2px; border-radius: 1px; background: var(--hairline-strong); transition: width 0.3s var(--ease), background-color 0.3s; }
-.rail a span { white-space: nowrap; opacity: 0; transform: translateX(-6px); transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), color 0.2s; }
-.rail:hover a span, .rail a.on span { opacity: 1; transform: none; }
-.rail a:hover, .rail a.on { color: var(--text); }
-.rail a.on::before { width: 26px; background: var(--brand); }
-@media (max-width: 1399px) { .rail { display: none; } }
+.ring { position: absolute; left: 0; top: 0; bottom: 0; width: 12px; border-radius: 6px; background-color: var(--page-2);
+  background-image: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--text) 26%, transparent) 0 1.5px, transparent 1.5px 6px);
+  box-shadow: inset 0 0 0 1px var(--hairline), inset 3px 0 4px rgba(0, 0, 0, 0.06);
+  -webkit-mask-image: linear-gradient(transparent, #000 32%, #000 68%, transparent); mask-image: linear-gradient(transparent, #000 32%, #000 68%, transparent); }
+.rail::before { content: ""; position: absolute; left: 15px; top: 50%; width: 11px; height: 2px; margin-top: -1px; border-radius: 1px; background: var(--brand); }
+.dial a { position: absolute; left: 34px; top: 50%; height: 22px; margin-top: -11px; line-height: 22px; white-space: nowrap; font-size: 13px;
+  color: var(--text-3); transform-origin: left center; will-change: transform, opacity; transition: color 0.2s; }
+.dial a.on { color: var(--text); font-weight: 550; }
+.dial a:hover { color: var(--text); }
+@media (max-width: 1439px) { .rail { display: none; } }
 
 /* ---------- What's next ---------- */
 .road { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 30px; }

@@ -7,6 +7,15 @@
     <description>Updates to RAWdemption, the RAW editor for macOS.</description>
     <language>en</language>
     <item>
+      <title>RAWdemption 0.9.22</title>
+      <pubDate>Mon, 26 Oct 2026 17:58:34 GMT</pubDate>
+      <sparkle:version>26</sparkle:version>
+      <sparkle:shortVersionString>0.9.22</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>New: Help › Send Feedback or an Idea, which reaches me directly.</li><li>A short welcome note on first launch.</li></ul>]]></description>
+      <enclosure url="https://rawdemption.com/downloads/RAWdemption-0.9.22.zip" length="2691777" type="application/octet-stream" sparkle:edSignature="acIjIQfsS3IZomnT4j7iU01ILlVWjPMP63RxNEVuTnhaUNIWpImMN3Oyu9FEsaUgXuRdiugrAM/y9xTIyTdgDQ=="/>
+    </item>
+    <item>
       <title>RAWdemption 0.9.21</title>
       <pubDate>Mon, 26 Oct 2026 16:07:58 GMT</pubDate>
       <sparkle:version>25</sparkle:version>
@@ -86,15 +95,6 @@
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<ul><li>Export progress, the grid and floating panels are lighter to draw. The profile page opens more smoothly.</li></ul>]]></description>
       <enclosure url="https://rawdemption.com/downloads/RAWdemption-0.9.13.zip" length="2591188" type="application/octet-stream" sparkle:edSignature="xaICZvi6bWg9Ye4333GXT4VVwOHNh3Ffasb6+6eJBVj+Kub6PJBqve5aKgALG8HDpFZefxkWef+EGv7RcL1ECw=="/>
-    </item>
-    <item>
-      <title>RAWdemption 0.9.12</title>
-      <pubDate>Thu, 22 Oct 2026 15:42:53 GMT</pubDate>
-      <sparkle:version>16</sparkle:version>
-      <sparkle:shortVersionString>0.9.12</sparkle:shortVersionString>
-      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<ul><li>The profile page is lighter to draw, so scrolling it and moving the window are smoother.</li></ul>]]></description>
-      <enclosure url="https://rawdemption.com/downloads/RAWdemption-0.9.12.zip" length="2589094" type="application/octet-stream" sparkle:edSignature="NrIOkKJuJkXuEBXkFBJxFd/LBIXDBbid9W+7wlhL1UJ75rYcFP5jXRTpBcfk2VnwIOvDNhzBPOs9LtkJTJ0FBg=="/>
     </item>
   </channel>
 </rss>
