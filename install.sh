@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs RAWdemption: curl -fsSL https://hobocow.github.io/rawdemption/install.sh | bash
+# Installs RAWdemption: curl -fsSL https://rawdemption.com/install.sh | bash
 #
 # Why a command: RAWdemption isn't notarised by Apple (that needs a paid developer membership), and
 # macOS calls such apps "damaged" when a browser downloads them, with no way to open them. Files that
@@ -7,7 +7,7 @@
 # you open it yourself. After that, updates install from inside the app.
 set -euo pipefail
 
-SITE="https://hobocow.github.io/rawdemption"
+SITE="https://rawdemption.com"
 APP=RAWdemption.app
 
 say() { printf '%s\n' "$*"; }
