@@ -7,6 +7,15 @@
     <description>Updates to RAWdemption, the RAW editor for macOS.</description>
     <language>en</language>
     <item>
+      <title>RAWdemption 0.9.18</title>
+      <pubDate>Mon, 26 Oct 2026 12:54:25 GMT</pubDate>
+      <sparkle:version>22</sparkle:version>
+      <sparkle:shortVersionString>0.9.18</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Flicking quickly through photos no longer develops every photo you skip past.</li><li>Slides and fades between edited photos use much less graphics work.</li><li>Less background work while you adjust white balance and detail, and while the pointer rests on the adjustment panel.</li></ul>]]></description>
+      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.18.zip" length="2611087" type="application/octet-stream" sparkle:edSignature="qQZOD+3BPaF79V2X18Ug1JIGmzoqrEZJ1/r6JnNMOjyEG0v2b5uQcKGXOpvVL4cwCJBrq2Cip/CHTdrMmNfSDQ=="/>
+    </item>
+    <item>
       <title>RAWdemption 0.9.17</title>
       <pubDate>Thu, 22 Oct 2026 19:27:54 GMT</pubDate>
       <sparkle:version>21</sparkle:version>
@@ -86,15 +95,6 @@
       <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
       <description><![CDATA[<ul><li>Choose from dozens of photography icons for your profile.</li><li>Your profile reads your style in more ways, and tells you why when you hover over a style word.</li><li>More greetings, and a larger profile page.</li></ul>]]></description>
       <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.9.zip" length="2568322" type="application/octet-stream" sparkle:edSignature="1/yiwBcv3+zRiIe79yYhZU7YJJ4KLihh4IhxkKvXCgJQfRUu+0ApiRBdxOYcaQwCIcSG2yUr2x3yji/zuewvCw=="/>
-    </item>
-    <item>
-      <title>RAWdemption 0.9.8</title>
-      <pubDate>Wed, 21 Oct 2026 22:34:51 GMT</pubDate>
-      <sparkle:version>12</sparkle:version>
-      <sparkle:shortVersionString>0.9.8</sparkle:shortVersionString>
-      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[<ul><li>Your profile: click your icon at the bottom of the sidebar to see what you&#x27;ve shot, edited and exported, your favourite camera, lens and focal length, and when you like to shoot.</li><li>RAWdemption now greets you for the time of day.</li><li>The sidebar button is gone from the editor, and folders look like folders.</li></ul>]]></description>
-      <enclosure url="https://hobocow.github.io/rawdemption/downloads/RAWdemption-0.9.8.zip" length="2542828" type="application/octet-stream" sparkle:edSignature="1Sn2v5p94nCK0XL6VcjEnxDiXbfVYbI8UoOe1HA5ie0nxjBqkV73bU4BydB/h8/dXYUdJP7TBqY3Yp0THXzfBw=="/>
     </item>
   </channel>
 </rss>
