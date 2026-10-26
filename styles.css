@@ -600,15 +600,16 @@ footer a:hover { color: var(--text); }
 
 /* ---------- Where you are: the nav and the side index mark the section in view ---------- */
 .nav-links a.on { opacity: 1; }
-.rail { position: fixed; right: 26px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 2px;
+/* Just beside the content column (1100 px wide), labels to its right, so it reads with the page */
+.rail { position: fixed; left: calc(50% + 574px); top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 2px;
   opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease); }
 .rail.show { opacity: 1; pointer-events: auto; }
-.rail a { display: flex; align-items: center; justify-content: flex-end; gap: 10px; height: 26px; color: var(--text-3); font-size: 12.5px; }
-.rail a::after { content: ""; flex: none; width: 14px; height: 2px; border-radius: 1px; background: var(--hairline-strong); transition: width 0.3s var(--ease), background-color 0.3s; }
-.rail a span { white-space: nowrap; opacity: 0; transform: translateX(6px); transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), color 0.2s; }
+.rail a { display: flex; align-items: center; gap: 10px; height: 26px; color: var(--text-3); font-size: 12.5px; }
+.rail a::before { content: ""; flex: none; width: 14px; height: 2px; border-radius: 1px; background: var(--hairline-strong); transition: width 0.3s var(--ease), background-color 0.3s; }
+.rail a span { white-space: nowrap; opacity: 0; transform: translateX(-6px); transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), color 0.2s; }
 .rail:hover a span, .rail a.on span { opacity: 1; transform: none; }
 .rail a:hover, .rail a.on { color: var(--text); }
-.rail a.on::after { width: 26px; background: var(--brand); }
+.rail a.on::before { width: 26px; background: var(--brand); }
 @media (max-width: 1399px) { .rail { display: none; } }
 
 /* ---------- What's next ---------- */

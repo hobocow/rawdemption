@@ -20,7 +20,7 @@
     // Appearance before first paint: saved choice, else the system's.
     try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=56ed800c">
+  <link rel="stylesheet" href="styles.css?v=a487a053">
 </head>
 <body>
 
@@ -96,7 +96,7 @@
     <p class="lede">A RAW editor for macOS. Free, and it stays that way.<br><span class="by">Made by a photographer.</span></p>
     <p class="motto">A hobby shouldn't come with a monthly rent.</p>
     <a class="btn touch" href="#download"><svg><use href="#i-down"/></svg>Install for Mac</a>
-    <div class="meta">Public beta · Only <span data-app-size>7.1 MB</span> · Apple silicon · macOS 13 or later</div>
+    <div class="meta">Public beta · Only <span data-app-size>6.8 MB</span> · Apple silicon · macOS 13 or later</div>
   </div>
 </header>
 
@@ -311,8 +311,8 @@
           <p>Macs with Apple silicon (M1 or later) on macOS 13 Ventura or later. 16 GB of memory is recommended for smooth editing of 24-megapixel RAW files; Intel Macs aren't supported.</p>
         </details>
         <details>
-          <summary>Why does installing need Terminal or Homebrew?</summary>
-          <p>macOS only opens an app downloaded in a browser if Apple has notarised it, which takes a paid developer membership. RAWdemption is free and made by one person, so it isn't notarised, and macOS calls it “damaged” instead. The Terminal command and Homebrew install the very same app without the “downloaded” label that triggers this. The <a href="install.sh">install script</a> is short enough to read, the <a href="https://github.com/hobocow/homebrew-rawdemption">Homebrew recipe</a> is public, and every update after that is signed and checked by the app before it installs.</p>
+          <summary>Why does installing need Terminal?</summary>
+          <p>macOS only opens an app downloaded in a browser if Apple has notarised it, which takes a paid developer membership. RAWdemption is free and made by one person, so it isn't notarised, and macOS calls it “damaged” instead. The Terminal command installs the very same app without the “downloaded” label that triggers this. The <a href="install.sh">install script</a> is short enough to read, and every update after that is signed and checked by the app before it installs.</p>
         </details>
         <details>
           <summary>Can it replace Lightroom?</summary>
@@ -332,12 +332,11 @@
         <img class="icon" src="assets/icon.png" alt="RAWdemption icon">
         <div>
           <h2>Install RAWdemption</h2>
-          <div class="specs">Version <span data-version>0.9.20</span> beta · <span data-download-size>2.6 MB</span> download, <span data-app-size>7.1 MB</span> installed · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
+          <div class="specs">Version <span data-version>0.9.21</span> beta · <span data-download-size>2.7 MB</span> download, <span data-app-size>6.8 MB</span> installed · Apple silicon · macOS 13 or later · 16 GB memory recommended · RAW, JPEG and HEIC</div>
         </div>
       </div>
       <div class="ways" role="tablist" aria-label="Ways to install">
         <button type="button" role="tab" id="way-terminal-tab" aria-controls="way-terminal" aria-selected="true">Terminal</button>
-        <button type="button" role="tab" id="way-brew-tab" aria-controls="way-brew" aria-selected="false">Homebrew</button>
         <button type="button" role="tab" id="way-zip-tab" aria-controls="way-zip" aria-selected="false">Download</button>
       </div>
       <div class="way" id="way-terminal" role="tabpanel" aria-labelledby="way-terminal-tab">
@@ -345,19 +344,14 @@
         <div class="cmd"><code id="install-cmd">curl -fsSL https://rawdemption.com/install.sh | bash</code><button type="button" class="copy touch" data-copy="#install-cmd">Copy</button></div>
         <p class="way-note">It downloads RAWdemption, checks that it arrived complete and intact, and puts it in Applications. That's all: it never asks for your password and leaves nothing behind but the app. <a href="install.sh">Read the script</a> first if you like; it's short.</p>
       </div>
-      <div class="way" id="way-brew" role="tabpanel" aria-labelledby="way-brew-tab" hidden>
-        <p>If you already use Homebrew:</p>
-        <div class="cmd"><code id="brew-cmd">brew install hobocow/rawdemption/rawdemption</code><button type="button" class="copy touch" data-copy="#brew-cmd">Copy</button></div>
-        <p class="way-note">Homebrew checks the download against the fingerprint in <a href="https://github.com/hobocow/homebrew-rawdemption">its public recipe</a>, then installs RAWdemption like any other app.</p>
-      </div>
       <div class="way" id="way-zip" role="tabpanel" aria-labelledby="way-zip-tab" hidden>
         <ol class="install">
-          <li><a href="downloads/RAWdemption.zip" download>Download RAWdemption</a> (<span data-download-size>2.6 MB</span>) and move it to Applications.</li>
+          <li><a href="downloads/RAWdemption.zip" download>Download RAWdemption</a> (<span data-download-size>2.7 MB</span>) and move it to Applications.</li>
           <li>Run this once in Terminal, so macOS lets it open:
             <div class="cmd"><code id="xattr-cmd">xattr -dr com.apple.quarantine /Applications/RAWdemption.app</code><button type="button" class="copy touch" data-copy="#xattr-cmd">Copy</button></div>
           </li>
         </ol>
-        <p class="way-note">SHA-256 of the zip: <code class="sha" data-sha256>4222a80327f69d3512c029a52ac011bdbbafa9e1d0c1c6cea8fe041028fcbdd7</code></p>
+        <p class="way-note">SHA-256 of the zip: <code class="sha" data-sha256>c24d747ff015cd88e9fce06718c257bf640b6bdddc9e0bea956733560f55e0b6</code></p>
       </div>
       <div class="install-why">
         <p><b>Why not a plain download button?</b> I make RAWdemption on my own and give it away. macOS only opens a browser-downloaded app straight away if Apple has notarised it, which needs a paid yearly developer membership, so for now it blocks RAWdemption and calls it “damaged”. Nothing is wrong with the file.</p>
@@ -375,7 +369,7 @@
     <div class="links">
       <a href="#faq">FAQ</a>
       <a href="privacy.html">Privacy</a>
-      <a href="mailto:karate.seating4j@icloud.com" data-link="contact">Contact</a>
+      <a href="mailto:hello@rawdemption.com" data-link="contact">Contact</a>
       <a href="https://www.patreon.com/rawdemption" data-link="patreon">Patreon</a>
     </div>
   </div>
