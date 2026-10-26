@@ -279,7 +279,7 @@
         </details>
         <details>
           <summary>Why install with a Terminal command?</summary>
-          <p>RAWdemption isn't sold through the App Store and isn't notarised by Apple yet, which takes a paid developer membership. Without it, macOS calls the app “damaged” when a browser downloads it, and offers no way to open it. Nothing is wrong with the file: the one-line command downloads it the way Terminal does, so it arrives without that label, checks that it's intact and really RAWdemption, puts it in Applications and opens it. Updates then install from inside the app, signed, with nothing more to do.</p>
+          <p>RAWdemption isn't sold through the App Store and isn't notarised by Apple yet, which takes a paid developer membership. Without it, macOS calls the app “damaged” when a browser downloads it, and offers no way to open it. Nothing is wrong with the file: the one-line command downloads it the way Terminal does, so it arrives without that label, checks that it's intact and really RAWdemption, puts it in Applications. Updates then install from inside the app, signed, with nothing more to do.</p>
         </details>
         <details>
           <summary>Can it replace Lightroom?</summary>
@@ -307,7 +307,7 @@
         <li>Paste this line and press Return:
           <div class="cmd"><code id="install-cmd">curl -fsSL https://hobocow.github.io/rawdemption/install.sh | bash</code><button type="button" class="copy touch" data-copy="#install-cmd">Copy</button></div>
         </li>
-        <li>RAWdemption downloads, moves itself to Applications and opens. That's it: from then on, updates arrive inside the app.</li>
+        <li>RAWdemption downloads and installs in Applications. Open it from there; from then on, updates arrive inside the app.</li>
       </ol>
       <p class="why-cmd">Why a command? RAWdemption isn't notarised by Apple yet (that takes a paid developer membership), and macOS labels such apps “damaged” when a browser downloads them. They aren't; the command simply installs without that label.
         Prefer the zip? <a href="downloads/RAWdemption.zip" download>Download it</a>, move RAWdemption to Applications, then run <code>xattr -dr com.apple.quarantine /Applications/RAWdemption.app</code> once in Terminal.</p>

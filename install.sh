@@ -3,8 +3,8 @@
 #
 # Why a command: RAWdemption isn't notarised by Apple (that needs a paid developer membership), and
 # macOS calls such apps "damaged" when a browser downloads them, with no way to open them. Files that
-# Terminal downloads aren't marked that way. This puts the app in Applications and opens it; after
-# that, updates install from inside the app.
+# Terminal downloads aren't marked that way. This puts the app in Applications and nothing else;
+# you open it yourself. After that, updates install from inside the app.
 set -euo pipefail
 
 SITE="https://hobocow.github.io/rawdemption"
@@ -33,5 +33,4 @@ dest=/Applications
 rm -rf "${dest:?}/$APP"
 ditto "$tmp/x/$APP" "$dest/$APP"
 xattr -dr com.apple.quarantine "$dest/$APP" 2>/dev/null || true
-say "Installed in $dest. Opening RAWdemption…"
-open "$dest/$APP"
+say "RAWdemption is installed in $dest. Open it from there, or with Spotlight (⌘ Space)."
