@@ -29,6 +29,47 @@
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
   const revealer = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); revealer.unobserve(e.target); } }), { threshold: 0.1 });
   $$(".reveal").forEach((n) => revealer.observe(n));
+
+  // ---------- Where you are: the side index and the nav follow the section in view ----------
+  const rail = $("#rail");
+  const marked = $$("#rail a, .nav-links a[href^='#']");
+  const sections = [...new Set(marked.map((a) => a.getAttribute("href")))].map((h) => $(h)).filter(Boolean);
+  const markCurrent = () => {
+    rail.classList.toggle("show", scrollY > heroEl.offsetHeight * 0.6);
+    // The last section whose top has passed a third of the window.
+    let current = null;
+    for (const sec of sections) if (sec.getBoundingClientRect().top < innerHeight / 3) current = sec;
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) current = sections[sections.length - 1];
+    const id = current ? "#" + current.id : "";
+    marked.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === id));
+  };
+  let markQueued = false;
+  addEventListener("scroll", () => { if (!markQueued) { markQueued = true; requestAnimationFrame(() => { markQueued = false; markCurrent(); }); } }, { passive: true });
+  addEventListener("resize", markCurrent);
+  markCurrent();
+
+  // ---------- What's next: the latest releases, from the app's own update feed ----------
+  fetch("appcast.xml", { cache: "no-cache" }).then((r) => r.ok ? r.text() : Promise.reject()).then((xml) => {
+    const doc = new DOMParser().parseFromString(xml, "application/xml");
+    const items = [...doc.querySelectorAll("item")].slice(0, 4);
+    if (!items.length) return;
+    const list = $("#releases ol");
+    for (const item of items) {
+      const version = item.getElementsByTagNameNS("*", "shortVersionString")[0]?.textContent || "";
+      const date = new Date(item.querySelector("pubDate")?.textContent || "");
+      const notes = new DOMParser().parseFromString(item.querySelector("description")?.textContent || "", "text/html");
+      const li = el("li", "");
+      const head = el("div", "rel-head");
+      head.append(el("b", ""), el("span", ""));
+      head.firstChild.textContent = "Version " + version;
+      head.lastChild.textContent = isNaN(date) ? "" : date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+      const ul = el("ul", "");
+      notes.querySelectorAll("li").forEach((n) => { const x = el("li", ""); x.textContent = n.textContent; ul.append(x); });
+      li.append(head, ul);
+      list.append(li);
+    }
+    $("#releases").hidden = false;
+  }).catch(() => {});
   Hero.start($("#hero-canvas"), () => heroEl.classList.add("ready"));
 
   /** Runs `fn(ctl)` while `node` is on screen; stops (rejecting its waits) when it leaves. */
@@ -1185,7 +1226,7 @@
       for (const t of ch.tags) { $(".pf-tags", win).appendChild(el("span", "", t)); await ctl.wait(380); }
       await ctl.wait(1800);
       // The light you chase.
-      say("The light you chase, hour by hour.");
+      say("When you shoot, hour by hour.");
       frame(panels[4], { max: 1.6, ms: 700 });
       insight("hours", ch.hourLine);
       const hmax = Math.max(...ch.hours);

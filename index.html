@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RAWdemption — RAW editor for macOS</title>
-  <meta name="description" content="Intuitive RAW editor for macOS. Free forever. Made by a fellow photographer. A hobby shouldn't come with a monthly rent.">
+  <meta name="description" content="A RAW editor for macOS, free and without limits. Made by a photographer, improved continuously. A hobby shouldn't come with a monthly rent.">
   <meta name="theme-color" content="#09080f">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RAWdemption — RAW editor for macOS">
-  <meta property="og:description" content="Intuitive RAW editor for macOS. Free forever. Made by a fellow photographer. A hobby shouldn't come with a monthly rent.">
+  <meta property="og:description" content="A RAW editor for macOS, free and without limits. Made by a photographer, improved continuously. A hobby shouldn't come with a monthly rent.">
   <meta property="og:image" content="https://hobocow.github.io/rawdemption/assets/og.png" data-link="og-image">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
     // Appearance before first paint: saved choice, else the system's.
     try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=ac52a9ab">
+  <link rel="stylesheet" href="styles.css?v=56ed800c">
 </head>
 <body>
 
@@ -68,8 +68,8 @@
     <div class="nav-links">
       <a class="opt" href="#why">Why</a>
       <a class="opt" href="#how">How it works</a>
-      <a class="opt" href="#you">You</a>
       <a class="opt" href="#features">Features</a>
+      <a class="opt" href="#future">What's next</a>
       <a class="opt" href="#faq">FAQ</a>
       <a href="#download">Download</a>
       <button class="theme" id="theme" title="Appearance"></button>
@@ -77,11 +77,23 @@
   </div>
 </nav>
 
+<!-- Where you are on the page; shown beside the content on wide windows -->
+<nav class="rail" id="rail" aria-label="Sections">
+  <a href="#why"><span>Why it exists</span></a>
+  <a href="#how"><span>How it works</span></a>
+  <a href="#feel"><span>Details</span></a>
+  <a href="#you"><span>Your profile</span></a>
+  <a href="#features"><span>Features</span></a>
+  <a href="#future"><span>What's next</span></a>
+  <a href="#faq"><span>Questions</span></a>
+  <a href="#download"><span>Install</span></a>
+</nav>
+
 <header class="hero" id="top">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-copy">
     <h1>RAWdemption<span class="beta">Beta</span></h1>
-    <p class="lede">Intuitive RAW editor for macOS. Free forever.<br><span class="by">Made by a fellow photographer.</span></p>
+    <p class="lede">A RAW editor for macOS. Free, and it stays that way.<br><span class="by">Made by a photographer.</span></p>
     <p class="motto">A hobby shouldn't come with a monthly rent.</p>
     <a class="btn touch" href="#download"><svg><use href="#i-down"/></svg>Install for Mac</a>
     <div class="meta">Public beta · Only <span data-app-size>7.1 MB</span> · Apple silicon · macOS 13 or later</div>
@@ -94,11 +106,11 @@
       <h2>Why RAWdemption exists</h2>
       <div class="why-grid">
       <div class="letter">
-        <p>RAWdemption began when I decided not to renew Lightroom. I wanted a simpler way to work through my photos: pick the keepers, adjust them, export.</p>
-        <p>The free editors I tried were capable, but I never settled into using them. So I built this. It's now the editor I use for my own photography.</p>
-        <p>I've made it available for other photographers with a similar routine. Photos stay in their folders, edits are saved alongside them, and editing and exporting are free.</p>
+        <p>RAWdemption began when I stopped renewing Lightroom. What I needed was simple: go through my photos, keep the good ones, adjust them, export.</p>
+        <p>The free editors I tried were capable, but none of them suited the way I work. So I built one. It is the editor I use for my own photography.</p>
+        <p>I've made it available to anyone who works the same way. Photos stay in their folders, edits are saved beside them, and editing and exporting cost nothing.</p>
         <p class="free"><svg aria-hidden="true"><use href="#i-check"/></svg>Free forever, for anyone.</p>
-        <p class="soft" data-needs="patreon">RAWdemption is made by one person. If it earns a place on your Mac, you can support it on Patreon.</p>
+        <p class="soft" data-needs="patreon">RAWdemption is made by one person. If it earns its place on your Mac, you can support it on Patreon.</p>
         <div class="row" data-needs="patreon"><a class="btn quiet touch" href="https://www.patreon.com/rawdemption" data-link="patreon"><svg><use href="#i-heart-fill"/></svg>Support on Patreon</a></div>
       </div>
       <aside class="spend" id="spend" aria-label="What a Lightroom plan adds up to, year by year">
@@ -228,17 +240,17 @@
 
   <section class="section" id="feel">
     <div class="wrap reveal">
-      <h2>Made to feel right</h2>
-      <p class="sub">Every control answers with a lift, a spring or a glide.</p>
+      <h2>Small things, done properly</h2>
+      <p class="sub">Every control responds at once and settles without fuss. Details like these are most of what makes an editor pleasant to use.</p>
       <div class="film feel-film" id="feel-film" style="margin-top:26px"></div>
     </div>
   </section>
 
   <section class="section" id="you">
     <div class="wrap reveal">
-      <h2>Made for you</h2>
-      <p class="sub">RAWdemption gets to know the photographer behind the photos: the camera you reach for, the focal length you keep coming back to, the light you chase. All of it stays on your Mac.</p>
-      <p class="supporter-note">The full profile comes with a €2 a month <a href="https://www.patreon.com/rawdemption" data-link="patreon">Patreon membership</a>. Editing, exporting and everything else stay free and unlimited, for everyone.</p>
+      <h2>Your photography, read back to you</h2>
+      <p class="sub">Your photos already record how you work: the cameras and lenses you use, the focal lengths you return to, the hours you shoot. RAWdemption gathers it into a profile. None of it leaves your Mac.</p>
+      <p class="supporter-note">The full profile is a thank-you for supporters on <a href="https://www.patreon.com/rawdemption" data-link="patreon">Patreon</a> (€2 a month). Editing, exporting and everything else are free and unlimited, for everyone.</p>
       <div class="film you-film" id="you-film" style="margin-top:26px"></div>
       <div class="caption" id="you-caption"></div>
     </div>
@@ -252,12 +264,33 @@
     <div class="wrap">
       <div class="features">
         <article class="tile reveal" data-demo="sort"><div class="demo"></div><div class="txt"><h3>Sort &amp; filter</h3><p>Sort by date, name or size. Filter by camera, lens and focal length. Search “35mm” or “2024”.</p></div></article>
-        <article class="tile reveal" data-demo="fav"><div class="demo"></div><div class="txt"><h3>Favorites <kbd>.</kbd></h3><p>Press . to heart a photo. Hearts are saved next to the photos, so they move with the folder.</p></div></article>
+        <article class="tile reveal" data-demo="fav"><div class="demo"></div><div class="txt"><h3>Favourites <kbd>.</kbd></h3><p>Press . to heart a photo. Hearts are saved next to the photos, so they move with the folder.</p></div></article>
         <article class="tile reveal" data-demo="paste"><div class="demo"></div><div class="txt"><h3>Copy &amp; paste edits <kbd>⇧⌘V</kbd></h3><p>Copy the edit from one photo and paste it on the rest. Crops and masks stay with their photo.</p></div></article>
         <article class="tile reveal" data-demo="mask"><div class="demo"></div><div class="txt"><h3>Masks <kbd>M</kbd></h3><p>Brush, linear and radial. Each mask gets its own exposure, colour and clarity.</p></div></article>
         <article class="tile reveal" data-demo="crop"><div class="demo"></div><div class="txt"><h3>Crop &amp; straighten <kbd>C</kbd></h3><p>Common ratios or free, plus straighten. It never leaves empty corners.</p></div></article>
         <article class="tile reveal" data-demo="print"><div class="demo"></div><div class="txt"><h3>Border &amp; date</h3><p>Optional white border, and the capture date stamped in the corner like an old film camera.</p></div></article>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="future">
+    <div class="wrap reveal">
+      <h2>Where it's going</h2>
+      <p class="sub">RAWdemption is a living project. I work on it every day, and each release leaves it better than the last.</p>
+      <div class="road">
+        <article><h3>Steady updates</h3><p>Fixes and improvements arrive inside the app, signed and checked before they install. Reported problems come first.</p></article>
+        <article><h3>Faster, lighter</h3><p>Speed and memory use are worked on continuously, so editing stays smooth on every Apple silicon Mac, not only the newest.</p></article>
+        <article><h3>New tools, chosen with care</h3><p>A tool is added when it makes editing better, not busier. The aim is a complete editor that stays calm to use.</p></article>
+        <article class="voice"><h3><svg aria-hidden="true"><use href="#i-heart-fill"/></svg>Shaped by its photographers</h3><p>Supporters on Patreon can request features. Each request is weighed against one question: would it make RAWdemption better for everyone? When it would, and the app's foundations allow it, it goes on the list.</p></article>
+        <article><h3>Beyond the Mac</h3><p>Photographers on Windows ask about it. Once the Mac version is mature, a Windows version is something I'd like to explore. No dates yet.</p></article>
+        <article><h3>Free stays free</h3><p>Whatever is added, editing and exporting remain free and unlimited, for everyone, wherever they are.</p></article>
+      </div>
+      <div class="releases" id="releases" hidden>
+        <h3>Recent releases</h3>
+        <ol></ol>
+      </div>
+      <p class="aim">The aim is simple: a complete, honest RAW editor, free for photographers everywhere.</p>
+      <div class="row" data-needs="patreon"><a class="btn quiet touch" href="https://www.patreon.com/rawdemption" data-link="patreon"><svg><use href="#i-heart-fill"/></svg>Support and request features</a></div>
     </div>
   </section>
 
@@ -287,7 +320,7 @@
         </details>
         <details>
           <summary>Is it finished?</summary>
-          <p>Not yet. RAWdemption began as my own editor and is now in public beta. More advanced features can follow over time. If something breaks or looks off, please be kind and report it to me with Help › Report a Problem: every report helps make RAWdemption better for as many photographers as possible.</p>
+          <p>No, and in a sense it never will be. RAWdemption is in public beta and improves with every release. If something breaks or looks wrong, Help › Report a Problem sends me the details. I read every report.</p>
         </details>
       </div>
     </div>
@@ -350,6 +383,6 @@
 
 <script src="photos.js?v=cdf224a2"></script>
 <script src="hero.js?v=066ba3b1"></script>
-<script src="site.js?v=9b6ee1d1"></script>
+<script src="site.js?v=b2643ea0"></script>
 </body>
 </html>

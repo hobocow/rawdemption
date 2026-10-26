@@ -597,3 +597,35 @@ footer a:hover { color: var(--text); }
 .pf-miles b { display: block; font-size: 15px; font-variant-numeric: tabular-nums; } .pf-miles span { font-size: 11px; color: var(--w-text-2); }
 .supporter-note { margin: 10px 0 0; color: var(--text-3); font-size: 13px; max-width: 620px; }
 .supporter-note a { color: var(--text-2); text-decoration: underline; text-decoration-color: var(--hairline-strong); text-underline-offset: 3px; }
+
+/* ---------- Where you are: the nav and the side index mark the section in view ---------- */
+.nav-links a.on { opacity: 1; }
+.rail { position: fixed; right: 26px; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; gap: 2px;
+  opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease); }
+.rail.show { opacity: 1; pointer-events: auto; }
+.rail a { display: flex; align-items: center; justify-content: flex-end; gap: 10px; height: 26px; color: var(--text-3); font-size: 12.5px; }
+.rail a::after { content: ""; flex: none; width: 14px; height: 2px; border-radius: 1px; background: var(--hairline-strong); transition: width 0.3s var(--ease), background-color 0.3s; }
+.rail a span { white-space: nowrap; opacity: 0; transform: translateX(6px); transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), color 0.2s; }
+.rail:hover a span, .rail a.on span { opacity: 1; transform: none; }
+.rail a:hover, .rail a.on { color: var(--text); }
+.rail a.on::after { width: 26px; background: var(--brand); }
+@media (max-width: 1399px) { .rail { display: none; } }
+
+/* ---------- What's next ---------- */
+.road { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 30px; }
+@media (max-width: 960px) { .road { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .road { grid-template-columns: 1fr; } }
+.road article { padding: 20px 20px 22px; border-radius: 14px; background: var(--card); border: 1px solid var(--hairline); }
+.road h3 { margin: 0; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.road h3 svg { width: 15px; height: 15px; color: var(--brand); flex: none; }
+.road p { margin: 6px 0 0; color: var(--text-2); font-size: 14px; line-height: 1.5; }
+.road article.voice { border-color: color-mix(in srgb, var(--brand) 45%, var(--hairline)); }
+.releases { margin-top: 34px; max-width: 720px; }
+.releases h3 { margin: 0 0 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); }
+.releases ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
+.releases ol > li { padding: 12px 0; border-bottom: 1px solid var(--hairline); }
+.rel-head { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; }
+.rel-head span { color: var(--text-3); font-size: 13px; }
+.releases ul { margin: 4px 0 0; padding-left: 18px; color: var(--text-2); font-size: 14px; }
+.aim { margin: 34px 0 0; font-size: 18px; font-weight: 550; letter-spacing: -0.01em; max-width: 640px; }
+#future .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
